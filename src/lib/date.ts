@@ -7,6 +7,7 @@ export function formatDate(d: Date, timeZone: string, opts: Intl.DateTimeFormatO
   return new Intl.DateTimeFormat('en-IN', { timeZone, ...opts }).format(d)
 }
 
+
 export const fmt = {
   weekday: (d: Date, tz: string) => formatDate(d, tz, { weekday: 'long' }),
   day: (d: Date, tz: string) => formatDate(d, tz, { day: '2-digit' }),
