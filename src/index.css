@@ -27,6 +27,30 @@
   --color-stark-steel: #11141b;
   --color-reactor: #7fe9ff;
   --color-reactor-deep: #1fb6e0;
+
+  /* Iron Man wedding — redesign system */
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+  --color-obsidian: #080a0f;
+  --color-obsidian-2: #0e1118;
+  --color-iron: #8f1820;
+  --color-iron-deep: #5a0d12;
+  --color-iron-gold: #c69a53;
+  --color-arc: #66d9ff;
+  --color-paper: #f5efe5;
+  --color-champagne: #d7c29a;
+  --color-umber: #3b2a1f;
+}
+
+/* Film grain used by the Iron Man invitation */
+.film-grain {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.paper-texture {
+  background-color: #f5efe5;
+  background-image:
+    radial-gradient(120% 70% at 50% 0%, rgba(255, 255, 255, 0.7), transparent 60%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.6' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .35  0 0 0 0 .2  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>");
 }
 
 html {
@@ -76,6 +100,16 @@ body {
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
+}
+
+@keyframes arc-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .82; }
+}
+.arc-breathe { animation: arc-breathe 3.6s ease-in-out infinite; }
+@keyframes eq {
+  0%, 100% { transform: scaleY(.3); }
+  50% { transform: scaleY(1); }
 }
 
 .animate-spin-slow { animation: spin-slow 18s linear infinite; }

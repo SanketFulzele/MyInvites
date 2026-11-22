@@ -137,3 +137,66 @@ export class AmbientScore {
     o2.stop(t + 2.5)
   }
 }
+
+/**
+ * One-shot "suit power-up" sound: a filtered noise sweep, a rising tone and
+ * two mechanical clicks. Must be called from a user gesture.
+ */
+export function playPowerUp() {
+  try {
+    const AC = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+    const ctx = new AC()
+    const t = ctx.currentTime + 0.02
+    const out = ctx.createGain()
+    out.gain.value = 0.5
+    out.connect(ctx.destination)
+
+    // noise sweep
+    const len = ctx.sampleRate * 1.4
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate)
+    const data = buf.getChannelData(0)
+    for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / len)
+    const noise = ctx.createBufferSource()
+    noise.buffer = buf
+    const bp = ctx.createBiquadFilter()
+    bp.type = 'bandpass'
+    bp.Q.value = 6
+    bp.frequency.setValueAtTime(300, t)
+    bp.frequency.exponentialRampToValueAtTime(4200, t + 1.1)
+    const ng = ctx.createGain()
+    ng.gain.setValueAtTime(0, t)
+    ng.gain.linearRampToValueAtTime(0.22, t + 0.5)
+    ng.gain.exponentialRampToValueAtTime(0.0001, t + 1.35)
+    noise.connect(bp).connect(ng).connect(out)
+    noise.start(t)
+
+    // rising tone
+    const o = ctx.createOscillator()
+    o.type = 'sine'
+    o.frequency.setValueAtTime(110, t)
+    o.frequency.exponentialRampToValueAtTime(880, t + 1)
+    const og = ctx.createGain()
+    og.gain.setValueAtTime(0, t)
+    og.gain.linearRampToValueAtTime(0.12, t + 0.6)
+    og.gain.exponentialRampToValueAtTime(0.0001, t + 1.3)
+    o.connect(og).connect(out)
+    o.start(t)
+    o.stop(t + 1.4)
+
+    // locking clicks
+    ;[0.05, 0.95].forEach((at) => {
+      const c = ctx.createOscillator()
+      c.type = 'square'
+      c.frequency.value = 1800
+      const cg = ctx.createGain()
+      cg.gain.setValueAtTime(0.08, t + at)
+      cg.gain.exponentialRampToValueAtTime(0.0001, t + at + 0.05)
+      c.connect(cg).connect(out)
+      c.start(t + at)
+      c.stop(t + at + 0.06)
+    })
+    window.setTimeout(() => void ctx.close(), 2000)
+  } catch {
+    /* audio unavailable */
+  }
+}

@@ -1,128 +1,103 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useJarvis } from './Jarvis'
+import { gauntlet as copy } from '../copy'
+import { useStatus } from './status'
 
-// Stone positions on the gauntlet SVG (viewBox 0 0 120 140)
+// Stone positions on the gauntlet artwork (viewBox 0 0 120 140)
 const STONES = [
-  { id: 'space', color: '#3b82f6', cx: 41, cy: 52, r: 4.2 },
-  { id: 'reality', color: '#ef4444', cx: 55, cy: 49, r: 4.2 },
-  { id: 'power', color: '#a855f7', cx: 69, cy: 49, r: 4.2 },
-  { id: 'soul', color: '#f97316', cx: 83, cy: 52, r: 4.2 },
-  { id: 'time', color: '#22c55e', cx: 30, cy: 82, r: 4.4 },
-  { id: 'mind', color: '#facc15', cx: 62, cy: 82, r: 8 },
+  { id: 'Space', color: '#4f8cff', cx: 41, cy: 52, r: 4 },
+  { id: 'Reality', color: '#e0444a', cx: 55, cy: 49, r: 4 },
+  { id: 'Power', color: '#a56cf0', cx: 69, cy: 49, r: 4 },
+  { id: 'Soul', color: '#f08a3c', cx: 83, cy: 52, r: 4 },
+  { id: 'Time', color: '#3fbf6f', cx: 27, cy: 82, r: 4.2 },
+  { id: 'Mind', color: '#f2cb45', cx: 62, cy: 82, r: 7.5 },
 ]
 
-/** Hidden Easter egg: light all six stones, then snap. */
+/** Hidden Easter egg: light all six stones to reveal a message. */
 export default function Gauntlet() {
-  const { say } = useJarvis()
+  const { say } = useStatus()
   const [lit, setLit] = useState<string[]>([])
-  const [snapped, setSnapped] = useState(false)
   const complete = lit.length === STONES.length
 
   const light = (id: string) => {
-    if (snapped || lit.includes(id)) return
+    if (lit.includes(id)) return
     const next = [...lit, id]
     setLit(next)
-    if (next.length === 1) say('Curious one, aren’t you? Five more to go.', 'gauntlet-start')
-    if (next.length === STONES.length) say('All six stones aligned. Snap with caution — preferably at the wedding.')
-  }
-
-  const snap = () => {
-    if (!complete) return
-    setSnapped(true)
-    say('I ran 14,000,605 futures. In every single one, they say “yes”.')
-    window.setTimeout(() => {
-      setSnapped(false)
-      setLit([])
-    }, 6000)
+    if (next.length === STONES.length) say('Six stones aligned. Reality remains intact — barely.')
   }
 
   return (
-    <div className="mx-auto mt-14 flex max-w-xs flex-col items-center">
+    <div className="mx-auto mt-20 flex flex-col items-center">
       <motion.div
-        onClick={snap}
-        animate={snapped ? { rotate: [0, -8, 8, 0], scale: [1, 1.08, 1] } : {}}
-        transition={{ duration: 0.6 }}
-        className={`relative ${complete ? 'cursor-pointer' : ''}`}
+        className="relative"
+        animate={complete ? { rotate: [0, -6, 5, 0] } : {}}
+        transition={{ duration: 0.7, ease: 'easeInOut' }}
       >
-        <svg viewBox="0 0 120 140" className="h-28 w-24 drop-shadow-[0_0_14px_rgba(232,182,76,.35)]">
+        <svg viewBox="0 0 120 140" className="h-[7.5rem] w-[6.5rem]" aria-hidden>
           <defs>
-            <linearGradient id="gold-metal" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stopColor="#ffe3a0" />
-              <stop offset=".45" stopColor="#c9952e" />
-              <stop offset="1" stopColor="#7a5414" />
+            <linearGradient id="g-metal" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stopColor="#e9d3a3" />
+              <stop offset=".45" stopColor="#a87d3c" />
+              <stop offset="1" stopColor="#5b3f18" />
             </linearGradient>
           </defs>
-          {/* fingers */}
           {[36, 50, 64, 78].map((x, i) => (
-            <rect key={x} x={x} y={i === 0 || i === 3 ? 14 : 6} width="11" height="44" rx="5.5" fill="url(#gold-metal)" stroke="#5c3d0c" strokeWidth=".8" />
+            <rect key={x} x={x} y={i === 0 || i === 3 ? 14 : 6} width="11" height="44" rx="5.5" fill="url(#g-metal)" stroke="#3d2a10" strokeWidth=".7" />
           ))}
-          {/* thumb */}
-          <rect x="12" y="60" width="12" height="36" rx="6" transform="rotate(-28 18 78)" fill="url(#gold-metal)" stroke="#5c3d0c" strokeWidth=".8" />
-          {/* back of hand + cuff */}
-          <path d="M30 46 h62 v46 c0 10-8 18-18 18 H48 c-10 0-18-8-18-18z" fill="url(#gold-metal)" stroke="#5c3d0c" strokeWidth=".8" />
-          <rect x="40" y="108" width="44" height="26" rx="5" fill="url(#gold-metal)" stroke="#5c3d0c" strokeWidth=".8" />
-          <path d="M44 116 h36 M44 124 h36" stroke="#7a5414" strokeWidth="1.2" />
+          <rect x="12" y="60" width="12" height="36" rx="6" transform="rotate(-28 18 78)" fill="url(#g-metal)" stroke="#3d2a10" strokeWidth=".7" />
+          <path d="M30 46 h62 v46 c0 10-8 18-18 18 H48 c-10 0-18-8-18-18z" fill="url(#g-metal)" stroke="#3d2a10" strokeWidth=".7" />
+          <rect x="40" y="108" width="44" height="26" rx="4" fill="url(#g-metal)" stroke="#3d2a10" strokeWidth=".7" />
+          <path d="M44 116h36M44 124h36" stroke="#5b3f18" strokeWidth="1" />
         </svg>
 
-        {/* stones as real buttons for touch accuracy */}
         {STONES.map((s) => {
           const on = lit.includes(s.id)
           return (
-            <span
+            <button
               key={s.id}
-              role="button"
-              tabIndex={0}
-              aria-label={`${s.id} stone`}
-              onClick={(e) => {
-                e.stopPropagation()
-                light(s.id)
-              }}
-              onKeyDown={(e) => e.key === 'Enter' && light(s.id)}
-              className="absolute grid place-items-center"
-              style={{
-                left: `${(s.cx / 120) * 100}%`,
-                top: `${(s.cy / 140) * 100}%`,
-                width: 28,
-                height: 28,
-                transform: 'translate(-50%, -50%)',
-              }}
+              type="button"
+              aria-label={`${s.id} stone${on ? ', lit' : ''}`}
+              aria-pressed={on}
+              onClick={() => light(s.id)}
+              className="absolute grid h-9 w-9 -translate-x-1/2 -translate-y-1/2 place-items-center"
+              style={{ left: `${(s.cx / 120) * 100}%`, top: `${(s.cy / 140) * 100}%` }}
             >
-              <span
-                className="block rounded-full transition-all duration-500"
+              <motion.span
+                className="block rounded-full"
+                animate={{ scale: on ? [1, 1.6, 1] : 1 }}
+                transition={{ duration: 0.5 }}
                 style={{
-                  width: s.r * 2.6,
-                  height: s.r * 2.6,
-                  background: on ? s.color : '#3a2a12',
-                  boxShadow: on ? `0 0 12px 3px ${s.color}` : 'inset 0 0 3px rgba(0,0,0,.8)',
+                  width: s.r * 2.5,
+                  height: s.r * 2.5,
+                  background: on ? s.color : '#2a1d0c',
+                  boxShadow: on ? `0 0 10px 2px ${s.color}` : 'inset 0 0 2px rgba(0,0,0,.9)',
+                  transition: 'background .4s, box-shadow .4s',
                 }}
               />
-            </span>
+            </button>
           )
         })}
       </motion.div>
 
-      <div className="mt-3 h-8">
-        {complete && !snapped ? (
-          <button onClick={snap} className="rounded-full border border-stark-gold/50 px-4 py-1.5 font-hud text-[9px] tracking-[0.35em] text-stark-amber">
-            SNAP
-          </button>
-        ) : (
-          <p className="font-hud text-[9px] tracking-[0.35em] text-white/30">{lit.length > 0 && !snapped ? `${lit.length} / 6` : ''}</p>
-        )}
+      <div className="mt-4 min-h-[3.5rem] max-w-xs">
+        <AnimatePresence mode="wait">
+          {complete ? (
+            <motion.p
+              key="done"
+              initial={{ opacity: 0, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)' }}
+              transition={{ duration: 1 }}
+              className="font-display text-lg italic leading-snug text-champagne"
+            >
+              {copy.complete}
+            </motion.p>
+          ) : (
+            <motion.p key="hint" exit={{ opacity: 0 }} className="font-mono text-[11px] uppercase tracking-[0.2em] text-paper/30">
+              {lit.length ? copy.progress(lit.length) : copy.hint}
+            </motion.p>
+          )}
+        </AnimatePresence>
       </div>
-
-      <AnimatePresence>
-        {snapped && (
-          <motion.div
-            className="pointer-events-none fixed inset-0 z-[65] bg-white"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.85, 0] }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.1 }}
-          />
-        )}
-      </AnimatePresence>
     </div>
   )
 }

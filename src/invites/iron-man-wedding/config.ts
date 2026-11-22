@@ -19,46 +19,62 @@ export const config: WeddingInviteConfig = {
     description: 'You are invited to the wedding of Nilesh & Harshada · 24 June 2026 · D.K.M. Bhavan, Kagal, Kolhapur',
   },
 
+  opening: {
+    presenter: 'Stark Industries presents',
+    occasion: 'A special celebration',
+    tagline: 'A lifetime. One promise. Infinite memories.',
+  },
+
   groom: {
     name: 'Nilesh',
     nameLocal: 'निलेश',
+    honorific: 'Chi.',
     honorificLocal: 'चि.',
     qualification: 'M.Sc. Electronics',
-    photo: `${base}/couple-portrait.webp`,
   },
   bride: {
     name: 'Harshada',
     nameLocal: 'हर्षदा',
+    honorific: 'Chi. Sau. Ka.',
     honorificLocal: 'चि.सौ.का.',
     qualification: 'B.Sc. Mathematics',
-    photo: `${base}/couple-portrait.webp`,
   },
 
   // Shubh muhurat: दुपारी 01:50 (1:50 PM), as on the Marathi card — confirmed.
   weddingDateTime: '2026-06-24T13:50:00',
   timezoneOffset: '+05:30',
   timeZone: 'Asia/Kolkata',
+  placeLine: 'Kagal · Kolhapur',
 
   blessingLine: '॥ श्री गणेशाय नमः ॥',
   headline: 'प्रेम सदैव',
-  intro:
-    'With hearts full of love, Nilesh & Harshada are excited for you to join them as they begin their forever.',
+  intro: 'With hearts full of love, we are excited for you to join us as we begin our forever.',
+
+  // Photos are optional. Without them the hero and story use typographic compositions.
+  photos: {
+    // hero: { src: `${base}/hero.webp`, alt: '…', focus: '50% 20%' },
+    // story: { src: `${base}/story.webp`, alt: '…' },
+    // venue: { src: `${base}/venue.webp`, alt: 'D.K.M. Bhavan, Kagal' },
+  },
 
   story: {
-    // SAMPLE — replace with the couple's real story.
+    // SAMPLE — replace with the couple's real story, then set isSample to false.
     isSample: true,
     chapters: [
       {
-        title: 'Two paths',
+        label: 'Act I',
+        title: 'Two cities',
         text: 'One from Mhaswad, one from Kagal — two journeys that were always heading toward the same place.',
       },
       {
-        title: 'One signal',
-        text: 'Somewhere between conversations and quiet smiles, two hearts found the same frequency.',
+        label: 'Act II',
+        title: 'One frequency',
+        text: 'Between long conversations and quiet smiles, two hearts found they were tuned to the same signal.',
       },
       {
+        label: 'Act III',
         title: 'Forever, activated',
-        text: 'With the blessings of both families, they are ready to begin their greatest adventure — together.',
+        text: 'With the blessings of both families, they begin their greatest adventure — together.',
       },
     ],
   },
@@ -66,42 +82,44 @@ export const config: WeddingInviteConfig = {
   events: [
     {
       id: 'haldi',
-      name: 'Haldi Ceremony',
+      kind: 'haldi',
+      name: 'Haldi',
       nameLocal: 'हळदी समारंभ',
       start: '2026-06-23T20:30:00',
-      venue: 'At the wedding venue — D.K.M. Bhavan, Kagal',
+      venue: 'At the wedding venue — D.K.M. Bhavan',
       description: 'An evening of turmeric, laughter and blessings as the celebrations begin.',
-      icon: 'haldi',
     },
+    // Mehendi and Sangeet are not on the cards. Add them here if they're planned — the
+    // timeline already has a visual identity for each:
+    // { id: 'mehendi', kind: 'mehendi', name: 'Mehendi', start: '2026-06-22T17:00:00', venue: '…', description: '…' },
+    // { id: 'sangeet', kind: 'sangeet', name: 'Sangeet', start: '2026-06-22T19:30:00', venue: '…', description: '…' },
     {
       id: 'wedding',
+      kind: 'wedding',
       name: 'Wedding Ceremony',
       nameLocal: 'शुभविवाह सोहळा',
       start: '2026-06-24T13:50:00',
-      timeLabel: '1:50 PM · Shubh Muhurat',
-      venue: 'D.K.M. Bhavan, Kagal – Murgud Road, Donemala, Kagal',
+      note: 'Shubh Muhurat',
+      venue: 'D.K.M. Bhavan, Kagal – Murgud Road, Kagal',
       description: 'Nilesh & Harshada take their vows. Your presence and blessings are our greatest gift.',
-      icon: 'wedding',
     },
     {
       id: 'reception',
-      name: 'Marriage Reception',
+      kind: 'reception',
+      name: 'Reception',
       start: null,
+      day: '2026-06-24',
       dateLabel: 'Wednesday, 24 June 2026',
-      timeLabel: 'To follow the ceremony',
+      timeLabel: 'Following the ceremony',
       venue: 'D.K.M. Bhavan, Kagal',
       description: 'Stay on to celebrate the newlyweds with family, friends and a wedding feast.',
-      icon: 'reception',
     },
-    // Mehendi and Sangeet are not on the cards — add them here if they're planned:
-    // { id: 'mehendi', name: 'Mehendi', start: '2026-06-22T17:00:00', venue: '…', description: '…', icon: 'mehendi' },
   ],
 
   families: [
     {
       side: 'groom',
-      title: "Groom's Family",
-      relationLine: 'Eldest son of',
+      relationLine: 'eldest son of',
       relationLineLocal: 'यांचे ज्येष्ठ सुपुत्र',
       parents: 'Sau. Gita & Shri. Narayan Ramu Aalavane',
       parentsLocal: 'सौ. गिता व श्री. नारायण रामू आळवणे',
@@ -110,8 +128,7 @@ export const config: WeddingInviteConfig = {
     },
     {
       side: 'bride',
-      title: "Bride's Family",
-      relationLine: 'Beloved daughter of',
+      relationLine: 'daughter of',
       relationLineLocal: 'यांची सुकन्या',
       parents: 'Sau. Vasumati & Shri. Chandrakant Shankar Shende',
       parentsLocal: 'सौ. वसुमती व श्री. चंद्रकांत शंकर शेंडे',
@@ -119,6 +136,11 @@ export const config: WeddingInviteConfig = {
       hometownLocal: 'रा. कागल, जि. कोल्हापूर',
     },
   ],
+
+  invitationLine: {
+    text: 'We request the pleasure of your presence and blessings at the auspicious wedding of',
+    textLocal: 'यांचा शुभविवाह सोहळा करण्याचे योजिले आहे. तरी आपली उपस्थिती प्रार्थनीय आहे.',
+  },
 
   inviters: {
     text: 'The entire Aalavane family, relatives & well-wishers',
@@ -136,19 +158,17 @@ export const config: WeddingInviteConfig = {
     locationLink: 'https://q.me-qr.com/u3t2l7n4',
   },
 
-  gallery: [
-    { src: `${base}/couple-temple.webp`, alt: 'Nilesh and Harshada holding hands on temple steps', caption: 'Hand in hand' },
-    { src: `${base}/couple-portrait.webp`, alt: 'Portrait of Harshada and Nilesh', caption: 'Together, always' },
-  ],
-
   cards: [
-    { src: `${base}/card-english.webp`, alt: 'English wedding invitation card for Nilesh and Harshada', label: 'Invitation' },
-    { src: `${base}/card-marathi.webp`, alt: 'Marathi wedding invitation card (शुभविवाह) for Nilesh and Harshada', label: 'निमंत्रण पत्रिका' },
+    { src: `${base}/card-english.webp`, alt: 'English wedding invitation card for Nilesh and Harshada', label: 'English card' },
+    { src: `${base}/card-marathi.webp`, alt: 'Marathi wedding invitation card (शुभविवाह) for Nilesh and Harshada', label: 'मराठी पत्रिका' },
   ],
 
   rsvp: {
+    enabled: true,
     // Add the family's WhatsApp number (country code + number, digits only) to receive RSVPs directly.
     whatsappNumber: '',
+    allowGuestCount: true,
+    maxGuests: 10,
   },
 
   music: {
@@ -157,5 +177,5 @@ export const config: WeddingInviteConfig = {
     title: 'Ambient score',
   },
 
-  closingLine: 'Your presence will make our celebration even more special!',
+  closingLine: 'Your presence will make our celebration even more special.',
 }
