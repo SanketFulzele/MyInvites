@@ -46,7 +46,7 @@ export function Invitation() {
           <div className="grid gap-7 font-mukta text-[15px] text-bodhi-ink/80 sm:grid-cols-2">
             {[fam.bride, fam.groom].map((f) => (
               <div key={f.surname}>
-                <p className="font-cinzel text-[11px] uppercase tracking-[0.25em] text-bodhi-gold-deep">{t(f.relation)}</p>
+                <p className="font-cinzel text-xs uppercase tracking-[0.25em] text-bodhi-gold-deep">{t(f.relation)}</p>
                 <p className={`mt-1 ${lang === 'mr' ? 'font-marathi' : ''}`}>{t(f.parents)}</p>
                 <p className={`mt-1.5 text-[12px] uppercase tracking-[0.2em] text-bodhi-maroon ${lang === 'mr' ? 'font-marathi tracking-normal text-sm' : 'font-cinzel'}`}>{t(f.familyLine)}</p>
               </div>
@@ -69,7 +69,7 @@ function GearToChakra() {
       onMouseLeave={() => setWheel(false)}
       onClick={() => setWheel((v) => !v)}
       aria-label="Gear — or is it a Dhamma wheel?"
-      className="relative grid h-9 w-9 place-items-center rounded-full bg-bodhi-navy/10"
+      className="relative grid h-11 w-11 place-items-center rounded-full bg-bodhi-navy/10"
     >
       <AnimatePresence mode="wait" initial={false}>
         {wheel ? (

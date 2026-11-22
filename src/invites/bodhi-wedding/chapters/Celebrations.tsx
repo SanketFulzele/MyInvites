@@ -70,7 +70,7 @@ function EventCard({ e, index }: { e: BodhiEvent; index: number }) {
 
         <div className="relative flex items-start justify-between gap-4">
           <div>
-            <p className={`font-cinzel text-[11px] tracking-[0.3em] ${look.accent}`}>{String(index + 1).padStart(2, '0')} · {lang === 'en' ? 'CELEBRATION' : 'सोहळा'}</p>
+            <p className={`font-cinzel text-xs tracking-[0.3em] ${look.accent}`}>{String(index + 1).padStart(2, '0')} · {lang === 'en' ? 'CELEBRATION' : 'सोहळा'}</p>
             <h3 className={`mt-2 text-[2.6rem] leading-none ${lang === 'mr' ? 'font-marathi' : 'font-display'} ${look.ink}`}>{t(e.name)}</h3>
             {lang === 'en' && <p className={`mt-1 font-marathi text-lg ${look.accent}`}>{e.name.mr}</p>}
           </div>
@@ -80,11 +80,11 @@ function EventCard({ e, index }: { e: BodhiEvent; index: number }) {
         <p className={`relative mt-4 font-mukta text-[15px] leading-relaxed ${look.ink} opacity-80`}>{t(e.description)}</p>
 
         <dl className={`relative mt-6 grid grid-cols-[4.5rem_1fr] gap-y-2.5 font-mukta text-[15px] ${look.ink}`}>
-          <dt className="font-cinzel text-[11px] tracking-[0.2em] opacity-60">{lang === 'en' ? 'DATE' : 'तारीख'}</dt>
+          <dt className="font-cinzel text-xs tracking-[0.2em] opacity-60">{lang === 'en' ? 'DATE' : 'तारीख'}</dt>
           <dd className="font-medium">{dateText(d, lang)}</dd>
-          <dt className="font-cinzel text-[11px] tracking-[0.2em] opacity-60">{lang === 'en' ? 'TIME' : 'वेळ'}</dt>
+          <dt className="font-cinzel text-xs tracking-[0.2em] opacity-60">{lang === 'en' ? 'TIME' : 'वेळ'}</dt>
           <dd className="font-medium">{timeText(d, lang)}</dd>
-          <dt className="font-cinzel text-[11px] tracking-[0.2em] opacity-60">{lang === 'en' ? 'VENUE' : 'स्थळ'}</dt>
+          <dt className="font-cinzel text-xs tracking-[0.2em] opacity-60">{lang === 'en' ? 'VENUE' : 'स्थळ'}</dt>
           <dd>
             {e.venue}
             {e.address && <span className="block opacity-70">{t(e.address)}</span>}
@@ -231,7 +231,7 @@ export function Countdown({ target }: { target: Date | null }) {
               <span className="font-display text-[clamp(1.6rem,8vw,2.4rem)] leading-none font-semibold tabular-nums text-bodhi-maroon">
                 {typeof v === 'number' ? String(v).padStart(2, '0') : v}
               </span>
-              <span className="mt-0.5 font-cinzel text-[9px] tracking-[0.15em] text-bodhi-ink/70 sm:text-[10px]"><span className="sm:hidden">{lang === 'en' ? (label as string).slice(0, 3).toUpperCase() : label}</span><span className="hidden sm:inline">{lang === 'en' ? (label as string).toUpperCase() : label}</span></span>
+              <span className="mt-0.5 font-cinzel text-[11px] tracking-[0.15em] text-bodhi-ink/70 sm:text-[11px]"><span className="sm:hidden">{lang === 'en' ? ({ Days: 'DAYS', Hours: 'HRS', Minutes: 'MIN', Seconds: 'SEC' } as Record<string, string>)[label as string] : label}</span><span className="hidden sm:inline">{lang === 'en' ? (label as string).toUpperCase() : label}</span></span>
             </div>
           </div>
         ))}

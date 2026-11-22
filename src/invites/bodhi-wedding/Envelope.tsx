@@ -162,9 +162,9 @@ export default function Envelope({ bride, groom, fullNames, blessing, guest, ven
             <div className="pointer-events-none absolute inset-1.5 rounded-[3px] border border-bodhi-gold/40" />
             <AshokChakra className="h-6 w-6" />
             <p className="mt-1 font-display text-[15px] italic leading-tight text-bodhi-ink/80">{fullNames}</p>
-            <p className="mt-1 font-cinzel text-[9px] tracking-[0.3em] text-bodhi-ink/55">INVITE YOU TO</p>
+            <p className="mt-1 font-cinzel text-[11px] tracking-[0.3em] text-bodhi-ink/55">INVITE YOU TO</p>
             <p className="mt-1 font-display text-[1.65rem] leading-none font-semibold text-bodhi-maroon">{venue}</p>
-            <p className="font-cinzel text-[11px] tracking-[0.35em] text-bodhi-gold-deep">{venueCity}</p>
+            <p className="font-cinzel text-xs tracking-[0.35em] text-bodhi-gold-deep">{venueCity}</p>
             <div className="my-2 h-px w-16 bg-bodhi-gold/60" />
             <p className="font-mukta text-[13px] font-medium text-bodhi-ink">{dateLine}</p>
             <p className="font-mukta text-xs text-bodhi-ink/65">{timeLine}</p>
@@ -272,7 +272,7 @@ export default function Envelope({ bride, groom, fullNames, blessing, guest, ven
         <button
           type="button"
           onClick={skip}
-          className={`absolute bottom-[max(16px,env(safe-area-inset-bottom))] right-4 z-50 rounded-full px-4 py-3 font-cinzel text-[11px] tracking-[0.25em] transition focus-visible:outline-2 focus-visible:outline-bodhi-saffron ${
+          className={`absolute bottom-[max(16px,env(safe-area-inset-bottom))] right-4 z-50 rounded-full px-4 py-3 font-cinzel text-xs tracking-[0.25em] transition focus-visible:outline-2 focus-visible:outline-bodhi-saffron ${
             seenBefore || replay ? 'border border-bodhi-ivory/30 text-bodhi-ivory/85' : 'text-bodhi-ivory/45'
           }`}
         >

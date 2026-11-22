@@ -114,7 +114,7 @@ export function ChapterNav({ chapters }: { chapters: ChapterLink[] }) {
         className="fixed right-3 top-3 z-40 flex min-h-[44px] items-center gap-2 rounded-full border border-bodhi-gold/50 bg-bodhi-ivory/90 py-2 pl-3 pr-4 shadow-[0_8px_24px_-14px_rgba(59,36,22,.6)] backdrop-blur lg:hidden"
       >
         <AshokChakra className="h-5 w-5" spin />
-        <span className="font-cinzel text-[11px] tracking-[0.2em] text-bodhi-ink/80">{String(index + 1).padStart(2, '0')} / {String(chapters.length).padStart(2, '0')}</span>
+        <span className="font-cinzel text-xs tracking-[0.2em] text-bodhi-ink/80">{String(index + 1).padStart(2, '0')} / {String(chapters.length).padStart(2, '0')}</span>
       </button>
 
       <AnimatePresence>
@@ -153,7 +153,7 @@ export function ChapterNav({ chapters }: { chapters: ChapterLink[] }) {
                       onClick={() => go(c.id)}
                       className={`flex w-full items-baseline gap-3 border-b border-bodhi-gold/25 py-3.5 text-left ${active === c.id ? 'text-bodhi-maroon' : 'text-bodhi-ink/80'}`}
                     >
-                      <span className="w-6 font-cinzel text-[11px] text-bodhi-gold-deep">{String(i + 1).padStart(2, '0')}</span>
+                      <span className="w-6 font-cinzel text-xs text-bodhi-gold-deep">{String(i + 1).padStart(2, '0')}</span>
                       <span className="font-display text-xl">{c.label}</span>
                       <span className="ml-auto font-marathi text-sm text-bodhi-gold-deep/80">{c.accent}</span>
                     </button>

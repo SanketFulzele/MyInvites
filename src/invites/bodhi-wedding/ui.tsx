@@ -81,7 +81,7 @@ export function ChapterHeading({
       <p className={`font-marathi text-xl ${light ? 'text-bodhi-saffron' : 'text-bodhi-gold-deep'}`} lang="mr">
         {accent}
       </p>
-      <p className={`mt-2 font-cinzel text-[11px] tracking-[0.32em] ${light ? 'text-bodhi-ivory/60' : 'text-bodhi-ink/55'}`}>{number}</p>
+      <p className={`mt-2 font-cinzel text-xs tracking-[0.32em] ${light ? 'text-bodhi-ivory/60' : 'text-bodhi-ink/55'}`}>{number}</p>
       {light ? (
         <h2 className="mt-3 font-display text-[2.5rem] leading-[1.05] font-medium text-bodhi-ivory text-balance sm:text-5xl">{title}</h2>
       ) : (

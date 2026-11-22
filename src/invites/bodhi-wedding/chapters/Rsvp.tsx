@@ -105,7 +105,7 @@ export default function Rsvp() {
     setSent(true)
   }
 
-  const label = `text-bodhi-ink/70 ${lang === 'en' ? 'font-cinzel text-[11px] tracking-[0.25em]' : 'font-marathi text-sm'}`
+  const label = `text-bodhi-ink/70 ${lang === 'en' ? 'font-cinzel text-xs tracking-[0.25em]' : 'font-marathi text-sm'}`
   const field = 'mt-2 w-full rounded-[4px] border bg-white/80 px-4 py-3.5 font-mukta text-base text-bodhi-ink outline-none transition placeholder:text-bodhi-ink/35 focus:border-bodhi-maroon focus:ring-2 focus:ring-bodhi-gold/30'
   const err = (m?: string) => m && <span className="mt-1.5 block font-mukta text-sm text-bodhi-rose">{m}</span>
 
@@ -115,7 +115,11 @@ export default function Rsvp() {
         accent="करुणा"
         number="CHAPTER XI"
         title={L(lang, 'Will You Join Us?', 'आपण याल ना?')}
-        subtitle={L(lang, 'Your reply opens in WhatsApp, ready to send to the family.', 'आपला प्रतिसाद WhatsApp मध्ये तयार होऊन उघडेल.')}
+        subtitle={
+          C.rsvp.contactName
+            ? L(lang, `Your reply opens in WhatsApp, ready to send to ${C.rsvp.contactName}.`, `आपला प्रतिसाद WhatsApp मध्ये तयार होऊन ${C.rsvp.contactName} यांच्याकडे जाईल.`)
+            : L(lang, 'Your reply opens in WhatsApp, ready to send to the family.', 'आपला प्रतिसाद WhatsApp मध्ये तयार होऊन उघडेल.')
+        }
       />
 
       <div className="relative mx-auto mt-12 max-w-lg overflow-hidden rounded-[4px] border-2 border-bodhi-gold/60 bg-bodhi-ivory px-6 py-10 shadow-[0_30px_60px_-40px_rgba(59,36,22,.7)] sm:px-10">

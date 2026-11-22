@@ -74,7 +74,7 @@ export default function Opening() {
           >
             <PipalLeaf className="h-7 w-6" fill="#5e8c3a" />
           </motion.span>
-          <span className="font-cinzel text-[10px] tracking-[0.3em]">SCROLL</span>
+          <span className="font-cinzel text-[11px] tracking-[0.3em]">SCROLL</span>
         </a>
       </div>
 

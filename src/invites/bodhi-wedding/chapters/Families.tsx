@@ -6,23 +6,47 @@ import { Chapter, ChapterHeading, EASE, Reveal, useLang, useT } from '../ui'
 import { bodhiWedding as C, type BodhiEvent } from '../bodhiWedding.config'
 import { dateText, embedUrl, mapsUrl, shortDate, timeText, toDate } from '../dates'
 
-/** Two small trees whose roots intertwine beneath the soil. */
+/**
+ * Two trees whose crowns lean in and overlap above, just as their roots
+ * intertwine beneath the soil.
+ */
+const CROWN_GREENS = ['#5e8c3a', '#86b157', '#4d7a2f', '#9cc46b', '#6f9c45']
+
+function crown(cx: number, cy: number, seed: number, n = 92) {
+  // golden-angle (sunflower) spread gives an even, full, rounded crown
+  return Array.from({ length: n }).map((_, i) => {
+    const a = i * 2.39996 + seed
+    const r = 50 * Math.sqrt((i + 0.5) / n)
+    return {
+      x: cx + Math.cos(a) * r,
+      y: cy + Math.sin(a) * r * 0.86,
+      rot: ((a * 180) / Math.PI) % 360,
+      c: i % 23 === 7 ? '#c9a227' : CROWN_GREENS[(i + Math.round(seed * 10)) % CROWN_GREENS.length],
+    }
+  })
+}
+
 function TwinTrees() {
-  const canopy = (cx: number, seed: number) =>
-    Array.from({ length: 34 }).map((_, i) => {
-      const a = (i / 34) * Math.PI * 2 * 1.7 + seed
-      const r = 6 + ((i * 7) % 20)
-      return { x: cx + Math.cos(a) * r, y: 58 + Math.sin(a) * r * 0.75, rot: (a * 180) / Math.PI + 90, c: ['#5e8c3a', '#86b157', '#4d7a2f', '#9cc46b'][i % 4] }
-    })
+  // render both crowns interleaved by height so the leaves mingle where they meet
+  const leaves = [...crown(80, 52, 0), ...crown(160, 52, 0.7)].sort((a, b) => a.y - b.y)
   return (
-    <svg viewBox="0 0 240 170" className="mx-auto w-[min(86vw,420px)]" aria-hidden>
+    <svg viewBox="0 0 240 170" className="mx-auto w-[min(92vw,460px)]" aria-hidden>
       <defs>
-        <path id="tw-leaf" d={PIPAL_PATH} transform="scale(.14) translate(-50 -60)" />
+        <path id="tw-leaf" d={PIPAL_PATH} transform="scale(.15) translate(-50 -60)" />
       </defs>
       <rect x="0" y="112" width="240" height="58" fill="#e9d9b8" opacity=".5" />
       <path d="M0 112 H240" stroke="#c9a227" strokeWidth=".8" />
-      <path d="M66 112 C64 96 70 86 66 70" stroke="#6b4a2c" strokeWidth="6" fill="none" strokeLinecap="round" />
-      <path d="M174 112 C176 96 170 86 174 70" stroke="#6b4a2c" strokeWidth="6" fill="none" strokeLinecap="round" />
+      {/* trunks lean toward each other, with branches reaching into the shared crown */}
+      <path d="M66 112 C64 96 70 82 80 62" stroke="#6b4a2c" strokeWidth="6.5" fill="none" strokeLinecap="round" />
+      <path d="M174 112 C176 96 170 82 160 62" stroke="#6b4a2c" strokeWidth="6.5" fill="none" strokeLinecap="round" />
+      <g stroke="#6b4a2c" strokeWidth="2.6" fill="none" strokeLinecap="round">
+        <path d="M76 70 C92 58 106 52 122 48" />
+        <path d="M164 70 C148 58 134 52 118 48" />
+        <path d="M74 74 C62 62 52 56 40 52" />
+        <path d="M166 74 C178 62 188 56 200 52" />
+        <path d="M80 64 C80 50 84 38 92 28" />
+        <path d="M160 64 C160 50 156 38 148 28" />
+      </g>
       <g stroke="#8a6440" strokeWidth="2.2" fill="none" strokeLinecap="round">
         {[
           'M66 112 C80 128 110 120 132 140 C146 152 160 150 172 158',
@@ -34,8 +58,8 @@ function TwinTrees() {
           <motion.path key={i} d={d} initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 2, delay: 0.2 + i * 0.15, ease: [0.65, 0, 0.35, 1] }} />
         ))}
       </g>
-      {[...canopy(66, 0), ...canopy(174, 0.4)].map((l, i) => (
-        <use key={i} href="#tw-leaf" fill={l.c} transform={`translate(${l.x} ${l.y}) rotate(${l.rot})`} />
+      {leaves.map((l, i) => (
+        <use key={i} href="#tw-leaf" fill={l.c} opacity=".95" transform={`translate(${l.x.toFixed(1)} ${l.y.toFixed(1)}) rotate(${l.rot.toFixed(0)})`} />
       ))}
       <circle cx="120" cy="140" r="3" fill="#c9a227" />
     </svg>
@@ -59,7 +83,7 @@ export function Families() {
       <div className="mx-auto mt-6 grid max-w-3xl gap-10 text-center sm:grid-cols-2">
         {sides.map(({ f, person }, i) => (
           <Reveal key={f.surname} delay={i * 0.12}>
-            <p className={`text-bodhi-gold-deep ${lang === 'en' ? 'font-cinzel text-[11px] uppercase tracking-[0.3em]' : 'font-marathi text-base'}`}>{t(f.title)}</p>
+            <p className={`text-bodhi-gold-deep ${lang === 'en' ? 'font-cinzel text-xs uppercase tracking-[0.3em]' : 'font-marathi text-base'}`}>{t(f.title)}</p>
             <p className="mt-2 font-display text-3xl text-bodhi-maroon">
               {person.first} {person.surname}
             </p>
@@ -100,7 +124,8 @@ function VenueEnvelope({ ev, open, onToggle }: { ev: BodhiEvent; open: boolean; 
   const t = useT()
   const d = toDate(ev.start)
   const cardId = `venue-card-${ev.id}`
-  const [mapOn, setMapOn] = useState(false)
+  // already open when mounted (tab switch) → show the map right away
+  const [mapOn, setMapOn] = useState(open)
 
   // mount the map after the card has risen (keeps the animation smooth)
   useEffect(() => {
@@ -125,7 +150,7 @@ function VenueEnvelope({ ev, open, onToggle }: { ev: BodhiEvent; open: boolean; 
         <div className="pointer-events-none absolute inset-1.5 rounded-[3px] border border-bodhi-gold/30" />
         <div className="relative flex items-start justify-between gap-3">
           <div>
-            <p className="font-cinzel text-[11px] tracking-[0.3em] text-bodhi-gold-deep">{ev.id === 'haldi' ? 'हळद · HALDI' : 'शुभविवाह · WEDDING'}</p>
+            <p className="font-cinzel text-xs tracking-[0.3em] text-bodhi-gold-deep">{ev.id === 'haldi' ? 'हळद · HALDI' : 'शुभविवाह · WEDDING'}</p>
             <h3 className="mt-1 font-display text-[1.9rem] leading-tight text-bodhi-maroon">{ev.venue}</h3>
           </div>
           <button type="button" onClick={onToggle} aria-label="Close envelope" className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-bodhi-ink/60 hover:bg-bodhi-gold/15">
@@ -134,11 +159,11 @@ function VenueEnvelope({ ev, open, onToggle }: { ev: BodhiEvent; open: boolean; 
         </div>
 
         <dl className={`relative mt-3 grid grid-cols-[4.8rem_1fr] gap-y-1.5 text-[15px] text-bodhi-ink ${lang === 'mr' ? 'font-marathi' : 'font-mukta'}`}>
-          <dt className="font-cinzel text-[11px] tracking-[0.2em] text-bodhi-ink/55">{lang === 'en' ? 'DATE' : 'तारीख'}</dt>
+          <dt className="font-cinzel text-xs tracking-[0.2em] text-bodhi-ink/55">{lang === 'en' ? 'DATE' : 'तारीख'}</dt>
           <dd className="font-medium">{dateText(d, lang)}</dd>
-          <dt className="font-cinzel text-[11px] tracking-[0.2em] text-bodhi-ink/55">{lang === 'en' ? 'TIME' : 'वेळ'}</dt>
+          <dt className="font-cinzel text-xs tracking-[0.2em] text-bodhi-ink/55">{lang === 'en' ? 'TIME' : 'वेळ'}</dt>
           <dd className="font-medium">{timeText(d, lang)}</dd>
-          <dt className="font-cinzel text-[11px] tracking-[0.2em] text-bodhi-ink/55">{lang === 'en' ? 'ADDRESS' : 'पत्ता'}</dt>
+          <dt className="font-cinzel text-xs tracking-[0.2em] text-bodhi-ink/55">{lang === 'en' ? 'ADDRESS' : 'पत्ता'}</dt>
           <dd>{ev.address ? t(ev.address) : ev.venue}</dd>
         </dl>
 
@@ -188,7 +213,7 @@ function VenueEnvelope({ ev, open, onToggle }: { ev: BodhiEvent; open: boolean; 
               <span className="font-display text-[1.9rem] leading-none text-bodhi-maroon">
                 {ev.name.en} <span className="font-marathi text-[1.4rem] text-bodhi-gold-deep">· {ev.name.mr}</span>
               </span>
-              <span className="mt-1.5 font-cinzel text-[11px] tracking-[0.25em] text-bodhi-ink/70">{d ? shortDate(d, lang).toUpperCase() : lang === 'en' ? 'DATE TO BE ANNOUNCED' : 'तारीख लवकरच'}</span>
+              <span className="mt-1.5 font-cinzel text-xs tracking-[0.25em] text-bodhi-ink/70">{d ? shortDate(d, lang).toUpperCase() : lang === 'en' ? 'DATE TO BE ANNOUNCED' : 'तारीख लवकरच'}</span>
             </span>
           </span>
           {/* flap */}
@@ -228,23 +253,11 @@ export function Venue() {
 
   useEffect(() => () => window.clearTimeout(timer.current), [])
 
+  // Switching tabs keeps the envelope as it is: if it's open, the other venue's card
+  // simply takes its place (no closing / re-opening); if it's closed, it stays closed.
   const choose = (id: BodhiEvent['id']) => {
     window.clearTimeout(timer.current)
-    if (id === tab) {
-      setOpen(true)
-      return
-    }
-    if (open) {
-      // close the current envelope, then open the other one
-      setOpen(false)
-      timer.current = window.setTimeout(() => {
-        setTab(id)
-        timer.current = window.setTimeout(() => setOpen(true), 60)
-      }, 650)
-    } else {
-      setTab(id)
-      timer.current = window.setTimeout(() => setOpen(true), 60)
-    }
+    setTab(id)
   }
 
   return (
@@ -269,7 +282,9 @@ export function Venue() {
           ))}
         </div>
 
-        <VenueEnvelope key={ev.id} ev={ev} open={open} onToggle={() => setOpen((v) => !v)} />
+        <motion.div key={ev.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, ease: 'easeOut' }}>
+          <VenueEnvelope ev={ev} open={open} onToggle={() => setOpen((v) => !v)} />
+        </motion.div>
 
         {(C.venueNotes.parking || C.venueNotes.contact) && (
           <ul className="mt-6 grid gap-3 font-mukta text-[15px] text-bodhi-ink/80 sm:grid-cols-2">

@@ -69,7 +69,7 @@ export default function Closing({ onReplay }: { onReplay: () => void }) {
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-5 sm:flex-row sm:justify-between">
           <div className="flex items-center gap-3">
             <AshokChakra className="h-7 w-7" color="#c9a227" spin />
-            <p className="font-cinzel text-[11px] tracking-[0.25em]">
+            <p className="font-cinzel text-xs tracking-[0.25em]">
               {C.bride.first.toUpperCase()} · {C.groom.first.toUpperCase()}
             </p>
           </div>
@@ -86,7 +86,7 @@ export default function Closing({ onReplay }: { onReplay: () => void }) {
           </div>
         </div>
         <p className="mt-6 font-mukta text-xs text-bodhi-ivory/40">
-          Crafted with love by <a href="/" className="underline-offset-4 hover:underline">My Invites</a>
+          Crafted with love by <a href="/" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">My Invites</a>
         </p>
       </footer>
     </motion.section>

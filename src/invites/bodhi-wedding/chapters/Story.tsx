@@ -37,7 +37,7 @@ export default function Story() {
                 <PipalLeaf className="h-11 w-9" fill={i === n - 1 ? '#c9a227' : '#5e8c3a'} rotate={180} />
               </motion.span>
               <Reveal y={18}>
-                <p className="font-cinzel text-[11px] tracking-[0.3em] text-bodhi-gold-deep">{String(i + 1).padStart(2, '0')}</p>
+                <p className="font-cinzel text-xs tracking-[0.3em] text-bodhi-gold-deep">{String(i + 1).padStart(2, '0')}</p>
                 <h3 className={`mt-1 leading-tight text-bodhi-maroon ${lang === 'mr' ? 'font-marathi text-[1.6rem]' : 'font-display text-[2rem]'}`}>{t(m.title)}</h3>
                 <p className="mt-2 font-mukta text-[15px] leading-relaxed text-bodhi-ink/75">{t(m.text)}</p>
               </Reveal>

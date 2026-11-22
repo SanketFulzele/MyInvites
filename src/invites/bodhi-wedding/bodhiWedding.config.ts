@@ -69,7 +69,7 @@ export const bodhiWedding = {
     first: 'Akhilesh',
     surname: 'Gaikwad',
     profession: { en: 'Mechanical Engineer', mr: 'मेकॅनिकल इंजिनिअर' },
-    from: null,
+    from: 'Nagpur',
     line: { en: 'Builds with precision and patience.', mr: 'अचूकतेने आणि संयमाने घडवणारा.' },
     photo: null,
   } as BodhiPerson,
@@ -89,16 +89,16 @@ export const bodhiWedding = {
     bride: {
       title: { en: "The Bride's Family", mr: 'वधू पक्ष' },
       surname: 'Fulzele',
-      parents: { en: 'Shri ____ & Smt ____ Fulzele', mr: 'श्री ____ व सौ. ____ फुलझेले' }, // TODO: replace (dummy) — bride's parents' names
+      parents: { en: 'Shri Sumit & Smt Kajal Fulzele', mr: 'श्री सुमित व सौ. काजल फुलझेले' },
       relation: { en: 'Daughter of', mr: 'यांची कन्या' },
       familyLine: { en: 'The Fulzele family, Takalghat', mr: 'फुलझेले परिवार, टाकळघाट' },
     } as FamilySide,
     groom: {
       title: { en: "The Groom's Family", mr: 'वर पक्ष' },
       surname: 'Gaikwad',
-      parents: { en: 'Shri ____ & Smt ____ Gaikwad', mr: 'श्री ____ व सौ. ____ गायकवाड' }, // TODO: replace (dummy) — groom's parents' names
+      parents: { en: 'Shri Rohit & Smt Palak Gaikwad', mr: 'श्री रोहित व सौ. पलक गायकवाड' },
       relation: { en: 'Son of', mr: 'यांचे सुपुत्र' },
-      familyLine: { en: 'The Gaikwad family, <Hometown>', mr: 'गायकवाड परिवार, <गाव>' }, // TODO: replace (dummy) — groom's hometown
+      familyLine: { en: 'The Gaikwad family, Nagpur', mr: 'गायकवाड परिवार, नागपूर' },
     } as FamilySide,
     blessing: {
       en: 'With the loving blessings of our grandparents',
@@ -216,8 +216,8 @@ export const bodhiWedding = {
   ],
 
   venueNotes: {
-    parking: null as Bilingual | null,
-    contact: null as Bilingual | null,
+    parking: { en: 'Parking available inside the palace grounds', mr: 'पॅलेस परिसरात पार्किंगची सोय आहे' } as Bilingual | null, // TODO: replace (dummy) — confirm parking
+    contact: { en: 'For help on the day: Sanket · +91 83810 01406', mr: 'मदतीसाठी: संकेत · +91 83810 01406' } as Bilingual | null,
   },
 
   gallery: [
@@ -226,7 +226,7 @@ export const bodhiWedding = {
   ] as { src: string; caption: string }[],
 
   rsvp: {
-    contactName: null as string | null,
+    contactName: 'the Fulzele family' as string | null, // TODO: replace (dummy) — who receives RSVPs (name)
     /** Digits with country code — +91 8381001406 */
     whatsappNumber: '918381001406',
     maxGuests: 10,
