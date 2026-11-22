@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Camera, Globe, PlayCircle, MessageCircle } from 'lucide-react'
+import { ArrowUpRight, Camera, Globe, MessageCircle, PlayCircle, Sparkles } from 'lucide-react'
 import Logo from './Logo'
 
 // Placeholder social links — replace "#" with real profiles when ready.
@@ -10,16 +10,18 @@ const socials = [
   { icon: MessageCircle, label: 'WhatsApp', href: '#' },
 ]
 
+const year = new Date().getFullYear()
+
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-ink text-ivory/80">
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-80 w-[40rem] -translate-x-1/2 rounded-full bg-gold/10 blur-3xl" />
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-nova-900">
+      <div className="pointer-events-none absolute -top-48 left-1/2 h-96 w-[46rem] -translate-x-1/2 rounded-full bg-nova-violet/15 blur-[110px]" />
+      <div className="nova-starfield pointer-events-none absolute inset-0 opacity-40" />
+      <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <Logo light />
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-ivory/60">
-            Beautifully crafted digital invitations that turn your special moments into stories your guests will
-            remember — and open straight from WhatsApp.
+          <Logo />
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-nova-muted">
+            Cinematic digital invitations that turn your special moments into stories your guests will remember — and open straight from WhatsApp.
           </p>
           <div className="mt-6 flex gap-3">
             {socials.map(({ icon: Icon, label, href }) => (
@@ -28,7 +30,7 @@ export default function Footer() {
                 href={href}
                 aria-label={`${label} (coming soon)`}
                 title={`${label} — coming soon`}
-                className="grid h-10 w-10 place-items-center rounded-full border border-ivory/10 transition hover:border-gold/60 hover:text-gold-soft"
+                className="grid h-10 w-10 place-items-center rounded-full border border-white/12 text-nova-muted transition hover:border-nova-cyan/60 hover:text-nova-cyan"
               >
                 <Icon className="h-4 w-4" />
               </a>
@@ -37,30 +39,36 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="font-display text-xl text-ivory">Explore</h4>
-          <ul className="mt-4 space-y-2.5 text-sm">
-            <li><Link className="hover:text-gold-soft" to="/">Home</Link></li>
-            <li><Link className="hover:text-gold-soft" to="/themes">Explore Themes</Link></li>
-            <li><Link className="hover:text-gold-soft" to="/#about">About Us</Link></li>
-            <li><Link className="hover:text-gold-soft" to="/#contact">Contact</Link></li>
+          <h4 className="font-display text-xl text-nova-text">Explore</h4>
+          <ul className="mt-4 space-y-2.5 text-sm text-nova-muted">
+            <li><Link className="transition hover:text-nova-cyan" to="/">Home</Link></li>
+            <li><Link className="transition hover:text-nova-cyan" to="/themes">My Invitations</Link></li>
+            <li><Link className="transition hover:text-nova-cyan" to="/#about">About Us</Link></li>
+            <li><Link className="transition hover:text-nova-cyan" to="/#contact">Contact</Link></li>
           </ul>
         </div>
 
         <div>
-          <h4 className="font-display text-xl text-ivory">Celebrations</h4>
-          <ul className="mt-4 space-y-2.5 text-sm text-ivory/60">
-            <li>Weddings</li>
-            <li>Engagements</li>
-            <li>Haldi &amp; Mehendi</li>
-            <li>Birthdays &amp; Anniversaries</li>
-            <li>Baby Showers</li>
+          <h4 className="font-display text-xl text-nova-text">Open an invitation</h4>
+          <ul className="mt-4 space-y-2.5 text-sm text-nova-muted">
+            <li>
+              <Link className="group inline-flex items-center gap-1.5 transition hover:text-nova-rose" to="/invite/sakura-wedding">
+                <Sparkles className="h-3.5 w-3.5 text-nova-rose" /> Sakura Wedding <ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:opacity-100" />
+              </Link>
+            </li>
+            <li>
+              <Link className="group inline-flex items-center gap-1.5 transition hover:text-nova-gold" to="/invite/iron-man-wedding">
+                <Sparkles className="h-3.5 w-3.5 text-nova-gold" /> Iron Man Wedding <ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:opacity-100" />
+              </Link>
+            </li>
+            <li className="pt-2 text-xs uppercase tracking-[0.16em] text-nova-muted/60">Weddings · Birthdays · Engagements</li>
           </ul>
         </div>
       </div>
-      <div className="border-t border-ivory/10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 py-6 text-xs text-ivory/45 sm:flex-row">
-          <p>© {new Date().getFullYear()} My Invites. All rights reserved.</p>
-          <p className="font-display text-sm italic text-ivory/55">Every Celebration Deserves Its Own Story.</p>
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-5 py-6 text-xs text-nova-muted/60 sm:flex-row sm:px-8">
+          <p>© {year} My Invites. All rights reserved.</p>
+          <p className="font-display text-sm italic text-nova-muted">Every Celebration Deserves Its Own Story.</p>
         </div>
       </div>
     </footer>

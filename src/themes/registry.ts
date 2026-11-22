@@ -18,7 +18,7 @@ export interface ThemeMeta {
   /** Short mood words shown as chips on the card */
   highlights: string[]
   /** Which preview artwork the theme card renders */
-  preview: 'iron-man'
+  preview: 'iron-man' | 'sakura'
   /** Lazily loaded so each theme ships as its own bundle */
   component: LazyExoticComponent<ComponentType>
 }
@@ -38,6 +38,16 @@ export const themes: ThemeMeta[] = [
     highlights: ['Cinematic intro', 'Hidden Easter eggs', 'Live countdown', 'RSVP'],
     preview: 'iron-man',
     component: lazy(() => import('../invites/iron-man-wedding/IronManInvite')),
+  },
+  {
+    slug: 'sakura-wedding',
+    title: 'Sakura',
+    category: 'Wedding',
+    description:
+      'A hand-painted anime romance: dusk skies, endless sakura petals and an original film-style score — made for Anushka & Virat.',
+    highlights: ['Anime romance', 'Sakura petals', 'Original score', 'English + Hindi'],
+    preview: 'sakura',
+    component: lazy(() => import('../invites/sakura-wedding/SakuraInvite')),
   },
 ]
 

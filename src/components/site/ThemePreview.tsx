@@ -3,7 +3,45 @@ import type { ThemeMeta } from '../../themes/registry'
 /** Pure-CSS preview artwork for each theme (no external images needed). */
 export default function ThemePreview({ preview }: { preview: ThemeMeta['preview'] }) {
   if (preview === 'iron-man') return <IronManPreview />
+  if (preview === 'sakura') return <SakuraPreview />
   return null
+}
+
+function SakuraPreview() {
+  return (
+    <div className="relative h-full w-full overflow-hidden bg-[linear-gradient(180deg,#2e2a55_0%,#6b4b6e_34%,#e9afc0_68%,#fff4e8_100%)]">
+      <div className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,#fff8e6_0%,#ffd9b8_45%,rgba(255,205,180,0)_72%)]" />
+      <svg viewBox="0 0 240 170" className="absolute -left-4 -top-3 w-40 opacity-90" aria-hidden="true">
+        <path d="M-6 168 C44 136 76 108 110 72 C138 42 176 25 242 12" fill="none" stroke="#5c3c4b" strokeWidth="2.4" />
+        {[
+          [52, 128],
+          [90, 82],
+          [130, 52],
+          [176, 30],
+          [212, 18],
+        ].map(([x, y]) => (
+          <g key={`${x}-${y}`} transform={`translate(${x} ${y})`} fill="#f7d9e1">
+            {[0, 72, 144, 216, 288].map((a) => (
+              <ellipse key={a} cx="0" cy="-5" rx="3.6" ry="5.2" transform={`rotate(${a})`} />
+            ))}
+            <circle r="2" fill="#c6a46a" />
+          </g>
+        ))}
+      </svg>
+      {[18, 34, 52, 68, 84].map((left, i) => (
+        <span
+          key={left}
+          className="absolute h-2.5 w-2 animate-float rounded-[80%_20%_70%_30%] bg-sakura-blush/80"
+          style={{ left: `${left}%`, top: `${20 + ((i * 17) % 55)}%`, animationDelay: `${i * 0.7}s` }}
+        />
+      ))}
+      <div className="absolute inset-x-0 bottom-5 text-center">
+        <p className="text-[9px] font-semibold tracking-[0.45em] text-sakura-ink/60">THE WEDDING OF</p>
+        <p className="mt-1 font-display text-2xl italic text-sakura-ink">Anushka &amp; Virat</p>
+        <div className="mx-auto mt-2 h-px w-20 bg-sakura-gold" />
+      </div>
+    </div>
+  )
 }
 
 function IronManPreview() {

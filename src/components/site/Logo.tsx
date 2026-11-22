@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
 
-export default function Logo({ light = false }: { light?: boolean }) {
+export default function Logo({ light = true }: { light?: boolean }) {
   return (
     <Link to="/" className="group inline-flex items-center gap-2.5" aria-label="My Invites home">
-      <span className="relative grid h-9 w-9 place-items-center rounded-xl bg-ink shadow-[0_6px_20px_-8px_rgba(29,21,18,.6)] ring-1 ring-gold/30 transition-transform group-hover:-rotate-6">
+      <span className="relative grid h-9 w-9 place-items-center rounded-xl bg-nova-700/80 shadow-[0_6px_24px_-8px_rgba(143,123,255,.8)] ring-1 ring-nova-violet/40 transition-transform duration-300 group-hover:-rotate-6">
         <svg viewBox="0 0 32 32" className="h-5 w-5" aria-hidden>
           <defs>
             <linearGradient id="logo-g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stopColor="#ffe3a0" />
-              <stop offset="1" stopColor="#c99a3e" />
+              <stop offset="0" stopColor="#5fe1e8" />
+              <stop offset="1" stopColor="#8f7bff" />
             </linearGradient>
           </defs>
           <path
@@ -20,8 +20,8 @@ export default function Logo({ light = false }: { light?: boolean }) {
           />
         </svg>
       </span>
-      <span className={`font-display text-2xl font-semibold tracking-tight ${light ? 'text-ivory' : 'text-ink'}`}>
-        My <em className="font-medium text-rose">Invites</em>
+      <span className={`font-display text-2xl font-semibold tracking-tight ${light ? 'text-nova-text' : 'text-ink'}`}>
+        My <em className="font-medium not-italic text-nova-cyan">Invites</em>
       </span>
     </Link>
   )

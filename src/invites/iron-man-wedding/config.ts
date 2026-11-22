@@ -83,6 +83,7 @@ export const config: WeddingInviteConfig = {
     {
       id: 'haldi',
       kind: 'haldi',
+      icon: 'haldi',
       name: 'Haldi',
       nameLocal: 'हळदी समारंभ',
       start: '2026-06-23T20:30:00',
@@ -96,6 +97,7 @@ export const config: WeddingInviteConfig = {
     {
       id: 'wedding',
       kind: 'wedding',
+      icon: 'wedding',
       name: 'Wedding Ceremony',
       nameLocal: 'शुभविवाह सोहळा',
       start: '2026-06-24T13:50:00',
@@ -106,6 +108,7 @@ export const config: WeddingInviteConfig = {
     {
       id: 'reception',
       kind: 'reception',
+      icon: 'reception',
       name: 'Reception',
       start: null,
       day: '2026-06-24',

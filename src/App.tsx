@@ -3,6 +3,7 @@ import { Route, Routes, useLocation, useParams } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import ThemesPage from './pages/ThemesPage'
 import NotFound from './pages/NotFound'
+import InviteLoader from './components/site/InviteLoader'
 import { getTheme } from './themes/registry'
 
 function ScrollToTop() {
@@ -18,17 +19,6 @@ function ScrollToTop() {
     window.scrollTo(0, 0)
   }, [pathname, hash])
   return null
-}
-
-function InviteLoader() {
-  return (
-    <div className="fixed inset-0 grid place-items-center bg-stark-night">
-      <div className="relative h-16 w-16">
-        <div className="absolute inset-0 rounded-full border-2 border-reactor/30 border-t-reactor animate-spin" />
-        <div className="absolute inset-4 rounded-full bg-reactor/70 blur-[6px]" />
-      </div>
-    </div>
-  )
 }
 
 function InviteRoute() {

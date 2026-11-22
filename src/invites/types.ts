@@ -21,10 +21,24 @@ export interface Person {
   /** Honorific in English, e.g. "Chi." */
   honorific?: string
   qualification?: string
+  /** Optional illustrated/photographic portrait */
+  photo?: string
+  /** Short guest-facing line about the person (used by illustrated themes) */
+  bio?: string
+  /** Playful profile-card stats used by the anime theme */
+  stats?: { label: string; value: string }[]
+}
+
+export interface FamilyMember {
+  relation: string
+  names: string
+  namesLocal?: string
 }
 
 export interface Family {
   side: 'groom' | 'bride'
+  /** Optional heading, e.g. "Groom's family" */
+  title?: string
   /** e.g. "eldest son of" */
   relationLine: string
   relationLineLocal?: string
@@ -32,6 +46,7 @@ export interface Family {
   parentsLocal?: string
   hometown: string
   hometownLocal?: string
+  others?: FamilyMember[]
 }
 
 export type EventKind = 'haldi' | 'mehendi' | 'sangeet' | 'wedding' | 'reception'
@@ -52,12 +67,24 @@ export interface WeddingEvent {
   note?: string
   venue: string
   description: string
+  /** Icon key a theme maps to its own artwork */
+  icon: EventKind
+  /** Anime theme: id of the venue in the central wedding config */
+  venueId?: string
+  /** Anime theme: scene illustration key */
+  scene?: 'dawn' | 'river' | 'wisteria' | 'matsuri' | 'shrine' | 'lake' | 'night'
+  /** Anime theme: small decorative kanji for the arc */
+  kanji?: string
+  /** Anime theme: dress-code line (SAMPLE until confirmed) */
+  dressCode?: string
 }
 
 export interface StoryChapter {
   label: string
   title: string
   text: string
+  /** Anime theme: a short in-panel dialogue line */
+  dialogue?: string
 }
 
 export interface WeddingInviteConfig {
@@ -92,6 +119,8 @@ export interface WeddingInviteConfig {
   }
   /** Set `isSample: true` until the couple provides their real story */
   story: { isSample: boolean; chapters: StoryChapter[] }
+  /** Optional illustrated gallery used by anime/romantic themes */
+  gallery?: { src: string; alt: string; caption?: string }[]
   events: WeddingEvent[]
   families: Family[]
   invitationLine: { text: string; textLocal?: string }

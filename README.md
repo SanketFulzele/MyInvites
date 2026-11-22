@@ -20,7 +20,16 @@ npm run build    # production build in dist/
 | --- | --- |
 | `/` | Homepage (hero, themes, about, contact) |
 | `/themes` | All invitation themes |
-| `/invite/:slug` | An individual invitation, e.g. `/invite/iron-man-wedding` |
+| `/invite/:slug` | An individual invitation, e.g. `/invite/iron-man-wedding` or `/invite/sakura-wedding` |
+
+## Editing the Sakura anime wedding invitation
+
+All guest-facing copy is in **`src/invites/sakura-wedding/config.ts`** (Anushka & Virat · 26 March 2027 · Nagpur). Values marked `SAMPLE` are placeholders. See `docs/sakura-anime-wedding-plan.md` for the full design plan.
+
+- **Petals** fall continuously across every section (`z-30`) and on the entry screen; they pause for `prefers-reduced-motion`.
+- **Music** currently plays `public/songs/Suzume.mp3` on repeat, starting only after **Enter**, with the toggle in the side drawer. To swap in a different track, replace the file (or change `music.src` in `config.ts`) and update `music.title`. If the file is missing or fails to load, the original generated score (`src/lib/sakuraScore.ts`) automatically plays instead.
+  Note: you are responsible for having the rights to any audio you host publicly. `listen.url` controls the "Hear the film theme" link in the side drawer.
+- **Audio controls live only in the side drawer** — never on the main page.
 
 ## Editing the Iron Man wedding invitation
 
