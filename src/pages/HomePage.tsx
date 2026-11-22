@@ -309,6 +309,14 @@ function InvitationsSection() {
             Open Iron Man Wedding
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
+          <Link
+            to="/invite/bodhi-wedding"
+            className="group inline-flex min-h-12 items-center gap-2.5 rounded-full border border-nova-gold/40 bg-nova-gold/10 px-5 text-sm font-bold text-white transition hover:bg-nova-gold/20"
+          >
+            <Sparkles className="h-4 w-4 text-nova-gold" />
+            Open Bodhi Wedding
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
         </div>
 
         <div className="mt-12 grid items-stretch gap-7 md:grid-cols-2">

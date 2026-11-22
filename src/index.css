@@ -77,7 +77,63 @@
   --color-nova-cyan: #5fe1e8;
   --color-nova-rose: #ff9ec4;
   --color-nova-gold: #f0cf95;
+
+  /* Bodhi wedding */
+  --font-cinzel: "Cinzel", "Cormorant Garamond", serif;
+  --font-mukta: "Mukta", system-ui, sans-serif;
+  --color-bodhi-saffron: #e8a33d;
+  --color-bodhi-gold: #c9a227;
+  --color-bodhi-gold-deep: #9c7a14;
+  --color-bodhi-maroon: #7a1f2b;
+  --color-bodhi-leaf: #5e8c3a;
+  --color-bodhi-sprout: #9cc46b;
+  --color-bodhi-navy: #0b3d91;
+  --color-bodhi-lotus: #f2a7b8;
+  --color-bodhi-rose: #c2263a;
+  --color-bodhi-ivory: #fbf5e9;
+  --color-bodhi-parchment: #f4e9d2;
+  --color-bodhi-ink: #3b2416;
+  --color-bodhi-dusk: #14204a;
 }
+
+/* Bodhi: warm parchment with a faint mandala watermark */
+.bodhi-parchment {
+  background-color: #fbf5e9;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .4  0 0 0 0 .15  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>"),
+    radial-gradient(120% 80% at 50% 0%, rgba(255, 244, 214, .9), transparent 65%);
+}
+.bodhi-shimmer {
+  background: linear-gradient(100deg, #7a1f2b 0%, #7a1f2b 40%, #e9c46a 50%, #7a1f2b 60%, #7a1f2b 100%);
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.bodhi-shimmer.is-in { animation: bodhi-sweep 2.2s ease-out .3s 1 both; }
+@keyframes bodhi-sweep { from { background-position: 100% 0; } to { background-position: 0% 0; } }
+@keyframes bodhi-flicker {
+  0%, 100% { transform: scale(1, 1) rotate(-1deg); opacity: .95; }
+  25% { transform: scale(.92, 1.08) rotate(2deg); opacity: 1; }
+  50% { transform: scale(1.05, .94) rotate(-2deg); opacity: .88; }
+  75% { transform: scale(.96, 1.05) rotate(1deg); opacity: 1; }
+}
+.bodhi-flame { transform-origin: 50% 100%; transform-box: fill-box; animation: bodhi-flicker 1.6s ease-in-out infinite; }
+@keyframes bodhi-bob { 0%, 100% { transform: translateY(0) rotate(-1.5deg); } 50% { transform: translateY(-6px) rotate(1.5deg); } }
+.bodhi-bob { animation: bodhi-bob 5s ease-in-out infinite; }
+@keyframes bodhi-rays { 0%, 100% { opacity: .35; } 50% { opacity: .75; } }
+.bodhi-rays { animation: bodhi-rays 7s ease-in-out infinite; }
+@keyframes bodhi-spin { to { transform: rotate(360deg); } }
+.bodhi-spin { animation: bodhi-spin 26s linear infinite; }
+.bodhi-spin-fast { animation: bodhi-spin 8s linear infinite; }
+@keyframes bodhi-glow { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+.bodhi-glow { animation: bodhi-glow 4s ease-in-out infinite; }
+@keyframes bodhi-sway { 0%, 100% { transform: rotate(-2.2deg); } 50% { transform: rotate(2.2deg); } }
+.bodhi-sway { transform-origin: 50% 0; animation: bodhi-sway 6s ease-in-out infinite; }
+@keyframes bodhi-ripple { from { transform: translate(-50%, -50%) scale(.2); opacity: .7; } to { transform: translate(-50%, -50%) scale(2.6); opacity: 0; } }
+@keyframes bodhi-shine { 0%, 100% { opacity: .25; transform: translateX(-4%); } 50% { opacity: .6; transform: translateX(4%); } }
+.bodhi-water-shine { animation: bodhi-shine 6s ease-in-out infinite; }
 
 /* Film grain used by the Iron Man invitation */
 .film-grain {
@@ -292,3 +348,6 @@ body {
     transition-duration: 0.001ms !important;
   }
 }
+@keyframes bodhi-breathe { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+.bodhi-breathe { animation: bodhi-breathe 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .bodhi-breathe { animation: none; opacity: .85; } }

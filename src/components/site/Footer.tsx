@@ -61,6 +61,11 @@ export default function Footer() {
                 <Sparkles className="h-3.5 w-3.5 text-nova-gold" /> Iron Man Wedding <ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:opacity-100" />
               </Link>
             </li>
+            <li>
+              <Link className="group inline-flex items-center gap-1.5 transition hover:text-nova-gold" to="/invite/bodhi-wedding">
+                <Sparkles className="h-3.5 w-3.5 text-nova-gold" /> Bodhi Wedding <ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:opacity-100" />
+              </Link>
+            </li>
             <li className="pt-2 text-xs uppercase tracking-[0.16em] text-nova-muted/60">Weddings · Birthdays · Engagements</li>
           </ul>
         </div>

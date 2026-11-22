@@ -31,6 +31,15 @@ All guest-facing copy is in **`src/invites/sakura-wedding/config.ts`** (Anushka 
   Note: you are responsible for having the rights to any audio you host publicly. `listen.url` controls the "Hear the film theme" link in the side drawer.
 - **Audio controls live only in the side drawer** — never on the main page.
 
+## Editing the Bodhi wedding invitation
+
+Route: `/invite/bodhi-wedding` (Aarti & Akhilesh · Rajwada Palace, Nagpur). Every name, date, link and line is in **`src/invites/bodhi-wedding/bodhiWedding.config.ts`**.
+
+- Values the family hasn't sent yet are `null`. The page shows "to be announced" instead, and the countdown, Add to Calendar and exact map pins switch on as soon as you fill in `weddingDateTime`, each event's `start`, `address` and `mapLink`.
+- **Music** plays `public/songs/buddha-song.mp3` on loop, starting only after the guest opens the envelope. To change it, replace the file or edit `music.src`.
+- **Photos**: set `bride.photo` / `groom.photo` for the arched frames, and add entries to `gallery` for the hanging polaroids. Until then, illustrated stand-ins are shown.
+- **Personal link**: `/invite/bodhi-wedding?guest=Name` shows "Dear Name, you are invited" on the envelope.
+
 ## Editing the Iron Man wedding invitation
 
 All guest-facing content is in **`src/invites/iron-man-wedding/config.ts`**: names, dates, events, families, venue, map, photos, RSVP number and music.

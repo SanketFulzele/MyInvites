@@ -1,10 +1,32 @@
 import type { ThemeMeta } from '../../themes/registry'
+import { AshokChakra, BodhiCanopy, Buddha } from '../../invites/bodhi-wedding/art'
 
 /** Pure-CSS preview artwork for each theme (no external images needed). */
 export default function ThemePreview({ preview }: { preview: ThemeMeta['preview'] }) {
   if (preview === 'iron-man') return <IronManPreview />
   if (preview === 'sakura') return <SakuraPreview />
+  if (preview === 'bodhi') return <BodhiPreview />
   return null
+}
+
+function BodhiPreview() {
+  return (
+    <div className="relative h-full w-full overflow-hidden bg-[linear-gradient(180deg,#fff2cf_0%,#fde6b5_40%,#fbf5e9_100%)]">
+      <BodhiCanopy className="absolute inset-x-0 top-0 h-[34%] w-full" />
+      <div className="absolute left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2">
+        <div className="relative">
+          <div className="absolute left-1/2 top-[22%] h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,226,140,.95),rgba(232,163,61,.3)_50%,transparent_70%)]" />
+          <AshokChakra className="absolute left-1/2 top-[22%] h-24 w-24 -translate-x-1/2 -translate-y-1/2 opacity-30" spin />
+          <Buddha className="relative h-24 w-auto" />
+        </div>
+      </div>
+      <div className="absolute inset-x-0 bottom-5 text-center">
+        <p className="font-marathi text-xs text-bodhi-gold-deep">बोधि</p>
+        <p className="mt-1 font-display text-2xl text-bodhi-maroon">Aarti ❀ Akhilesh</p>
+        <div className="mx-auto mt-2 h-px w-20 bg-bodhi-gold" />
+      </div>
+    </div>
+  )
 }
 
 function SakuraPreview() {

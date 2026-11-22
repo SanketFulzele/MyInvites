@@ -18,7 +18,7 @@ export interface ThemeMeta {
   /** Short mood words shown as chips on the card */
   highlights: string[]
   /** Which preview artwork the theme card renders */
-  preview: 'iron-man' | 'sakura'
+  preview: 'iron-man' | 'sakura' | 'bodhi'
   /** Lazily loaded so each theme ships as its own bundle */
   component: LazyExoticComponent<ComponentType>
 }
@@ -48,6 +48,16 @@ export const themes: ThemeMeta[] = [
     highlights: ['Anime romance', 'Sakura petals', 'Original score', 'English + Hindi'],
     preview: 'sakura',
     component: lazy(() => import('../invites/sakura-wedding/SakuraInvite')),
+  },
+  {
+    slug: 'bodhi-wedding',
+    title: 'Bodhi',
+    category: 'Wedding',
+    description:
+      'Under the Bodhi tree: a serene, golden-hour invitation with a lotus-sealed envelope, falling pipal leaves and the Ashok Chakra — made for Aarti & Akhilesh.',
+    highlights: ['Envelope opening', 'Pipal leaves', 'English + मराठी', 'RSVP'],
+    preview: 'bodhi',
+    component: lazy(() => import('../invites/bodhi-wedding/BodhiInvite')),
   },
 ]
 
