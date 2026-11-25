@@ -95,6 +95,18 @@
   --color-bodhi-ink: #3b2416;
   --color-bodhi-dusk: #14204a;
 
+  /* Site (landing) — light wedding-stationery palette */
+  --color-site-paper: #fbf7f2;
+  --color-site-cream: #f6eee4;
+  --color-site-blush: #f6e4df;
+  --color-site-rose: #b4475c;
+  --color-site-wine: #6b2234;
+  --color-site-gold: #b8904a;
+  --color-site-ink: #2a1d22;
+  --color-site-muted: #6f5d61;
+  --color-site-line: #eadcd3;
+  --color-site-sage: #7f906f;
+
   /* Royal Rose wedding */
   --font-playfair: "Playfair Display", Georgia, serif;
   --font-montserrat: "Montserrat", system-ui, sans-serif;
@@ -410,3 +422,12 @@ body {
 /* Parallax scenes: GPU layers only near the viewport; loops paused off-screen */
 .scene-active [data-depth] { will-change: transform; }
 .scene-offscreen, .scene-offscreen * { animation-play-state: paused !important; }
+
+
+/* ───────── Site (landing) ───────── */
+.site-paper {
+  background-color: #fbf7f2;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5  0 0 0 0 .35  0 0 0 0 .3  0 0 0 .045 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>");
+}
+@keyframes site-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.site-float { animation: site-float 7s ease-in-out infinite; }

@@ -1,59 +1,39 @@
-import { Link } from 'react-router-dom'
-import { ArrowUpRight, Sparkles, Wand2 } from 'lucide-react'
+import { motion } from 'framer-motion'
 import Navbar from '../components/site/Navbar'
 import Footer from '../components/site/Footer'
 import ThemeCard from '../components/site/ThemeCard'
-import Aurora from '../components/site/Aurora'
-import RevealText from '../components/site/RevealText'
-import ScrollProgress from '../components/site/ScrollProgress'
+import { Eyebrow, GoldRule, Sprig } from '../components/site/Ornaments'
 import { themes } from '../themes/registry'
 
 export default function ThemesPage() {
   return (
-    <div className="relative min-h-screen overflow-x-clip bg-nova-950 text-nova-text">
-      <ScrollProgress />
+    <div className="site-paper relative min-h-screen overflow-x-clip text-site-ink">
       <Navbar />
-      <section className="grain relative isolate overflow-hidden pb-24 pt-32 sm:pt-40">
-        <Aurora />
-        <div className="nova-grid pointer-events-none absolute inset-0 opacity-60" />
-        <div className="nova-starfield pointer-events-none absolute inset-0 opacity-40" />
-        <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.24em] text-nova-cyan sm:text-[11px]">
-              <Sparkles className="h-3.5 w-3.5" /> My Invitations
-            </p>
-            <h1 className="mt-5 font-display text-5xl leading-[1.02] font-medium tracking-[-0.03em] text-balance sm:text-6xl">
-              <RevealText parts={[{ text: 'Find the world your ' }, { text: 'celebration lives in.', className: 'gradient-text' }]} />
+      <section className="relative overflow-hidden pb-24 pt-32 sm:pt-40">
+        <div aria-hidden className="pointer-events-none absolute -right-32 -top-24 h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,rgba(244,214,208,.85),transparent_65%)]" />
+        <Sprig className="pointer-events-none absolute -left-4 top-28 hidden w-48 text-site-gold/40 md:block" />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
+          <motion.div
+            className="mx-auto max-w-2xl text-center"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Eyebrow>The collection</Eyebrow>
+            <h1 className="mt-4 font-playfair text-[2.7rem] leading-[1.05] text-balance sm:text-6xl">
+              Find the world your <em className="text-site-wine">celebration lives in</em>
             </h1>
-            <p className="mt-5 text-lg text-nova-muted">
-              Open a theme to experience the full invitation, exactly as your guests will see it.
-            </p>
-          </div>
+            <p className="mt-5 text-lg text-site-muted">Open any invitation to experience it exactly as your guests will.</p>
+            <GoldRule className="mx-auto mt-6 w-40" />
+          </motion.div>
 
-          <div className="mx-auto mt-10 flex max-w-xl flex-wrap justify-center gap-3">
-            {themes.map((theme) => (
-              <Link
-                key={theme.slug}
-                to={`/invite/${theme.slug}`}
-                className="group inline-flex min-h-12 items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-5 text-sm font-semibold text-white backdrop-blur transition hover:border-nova-violet/60 hover:bg-white/[0.09]"
-              >
-                <Sparkles className="h-4 w-4 text-nova-violet" />
-                Open {theme.title} Invitation
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-            ))}
-          </div>
-
-          <div className="mx-auto mt-14 grid max-w-xl gap-8 lg:max-w-[34rem]">
+          <div className="mt-14 grid gap-7 md:grid-cols-2 lg:gap-9">
             {themes.map((t, i) => (
               <ThemeCard key={t.slug} theme={t} index={i} />
             ))}
           </div>
 
-          <p className="mx-auto mt-10 max-w-md text-center text-sm text-nova-muted">
-            <Wand2 className="mr-1.5 inline h-4 w-4 text-nova-gold" />
-            New themes for weddings, engagements and birthdays are on the way.
-          </p>
+          <p className="mx-auto mt-12 max-w-md text-center text-sm text-site-muted">More themes for weddings, engagements and birthdays are on the way.</p>
         </div>
       </section>
       <Footer />

@@ -115,8 +115,8 @@ function RoyalRosePreview() {
     <div className="relative h-full w-full overflow-hidden" style={{ background: 'radial-gradient(120% 80% at 50% 40%, #fff6f2 0%, #f7e1df 55%, #eec7c8 100%)' }}>
       <img src={ROSE_CLUSTER} alt="" aria-hidden className="absolute -left-8 -top-8 w-32 opacity-90" />
       <img src={ROSE_CLUSTER} alt="" aria-hidden className="absolute -bottom-8 -right-8 w-32 rotate-180 opacity-90" />
-      <div className="absolute left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2" style={{ perspective: 600 }}>
-        <div className="rr-velvet relative flex h-36 w-28 flex-col items-center justify-center rounded-r-md rounded-l-sm shadow-[0_20px_30px_-14px_rgba(74,18,32,.8)]" style={{ transform: 'rotateY(-16deg) rotateX(6deg)' }}>
+      <div className="absolute left-1/2 top-[38%] h-[46%] -translate-x-1/2 -translate-y-1/2" style={{ perspective: 600 }}>
+        <div className="rr-velvet relative flex aspect-[3/4] h-full max-h-36 flex-col items-center justify-center rounded-r-md rounded-l-sm shadow-[0_20px_30px_-14px_rgba(74,18,32,.8)]" style={{ transform: 'rotateY(-16deg) rotateX(6deg)' }}>
           <div className="absolute inset-1.5 rounded-sm border border-[#c6a15b]/80" />
           <Medallion className="h-12 w-12" />
           <p className="mt-2 font-playfair text-[10px] italic rr-gold-text">Akhilesh &amp; Aarti</p>

@@ -1,335 +1,168 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
-import {
-  ArrowDown,
-  ArrowRight,
-  ArrowUpRight,
-  CalendarHeart,
-  Check,
-  Heart,
-  MapPin,
-  MessageCircle,
-  Music2,
-  Play,
-  ShieldCheck,
-  Smartphone,
-  Sparkles,
-  WandSparkles,
-} from 'lucide-react'
+import { motion } from 'framer-motion'
+import { ArrowRight, CalendarHeart, Languages, MapPin, MessageCircle, Music2, Sparkles } from 'lucide-react'
 import Navbar from '../components/site/Navbar'
 import Footer from '../components/site/Footer'
-import SpotlightCard from '../components/site/SpotlightCard'
 import ThemeCard from '../components/site/ThemeCard'
 import ThemePreview from '../components/site/ThemePreview'
-import Aurora from '../components/site/Aurora'
-import Marquee from '../components/site/Marquee'
-import RevealText from '../components/site/RevealText'
-import MagneticLink from '../components/site/MagneticLink'
-import ScrollProgress from '../components/site/ScrollProgress'
-import { usePrefersReducedMotion } from '../hooks/useReducedMotion'
-import { themes } from '../themes/registry'
+import { Eyebrow, GoldRule, Sprig, WaxSeal } from '../components/site/Ornaments'
+import { ROSE_CLUSTER, RoseImg } from '../invites/royal-rose-wedding/art'
+import { themes, type ThemeMeta } from '../themes/registry'
+import { CONTACT } from '../lib/contact'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen overflow-x-clip bg-nova-950 text-nova-text">
-      <ScrollProgress />
+    <div className="site-paper relative min-h-screen overflow-x-clip text-site-ink">
       <Navbar />
-      <main className="relative">
+      <main>
         <Hero />
-        <MarqueeBand />
-        <InvitationsSection />
-        <AboutSection />
-        <ContactSection />
+        <Collection />
+        <HowItWorks />
+        <Features />
+        <Contact />
       </main>
       <Footer />
     </div>
   )
 }
 
-/* ---------------------------------- Hero --------------------------------- */
-
-const rotatingWords = ['weddings', 'birthdays', 'engagements', 'celebrations']
-
-function RotatingWord() {
-  const reduced = usePrefersReducedMotion()
-  const [index, setIndex] = useState(0)
-
-  useEffect(() => {
-    if (reduced) return
-    const id = window.setInterval(() => setIndex((v) => (v + 1) % rotatingWords.length), 2400)
-    return () => window.clearInterval(id)
-  }, [reduced])
-
+function Heading({ eyebrow, children, sub, center = true }: { eyebrow: string; children: ReactNode; sub?: ReactNode; center?: boolean }) {
   return (
-    <span className="relative inline-grid align-bottom">
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={rotatingWords[index]}
-          initial={{ opacity: 0, y: reduced ? 0 : '75%' }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: reduced ? 0 : '-75%' }}
-          transition={{ duration: reduced ? 0.01 : 0.45, ease }}
-          className="col-start-1 row-start-1 whitespace-nowrap font-medium text-nova-cyan"
-        >
-          {rotatingWords[index]}
-        </motion.span>
-      </AnimatePresence>
-      {/* Reserve space for the longest word so the line never jumps. */}
-      <span className="invisible col-start-1 row-start-1 whitespace-nowrap" aria-hidden="true">
-        celebrations
-      </span>
-    </span>
+    <motion.div
+      className={center ? 'mx-auto max-w-2xl text-center' : 'max-w-xl'}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.7, ease }}
+    >
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <h2 className="mt-4 font-playfair text-[2.4rem] leading-[1.08] text-site-ink text-balance sm:text-5xl">{children}</h2>
+      {sub && <p className="mt-4 text-base leading-relaxed text-site-muted sm:text-lg">{sub}</p>}
+      <GoldRule className={`mt-6 w-40 ${center ? 'mx-auto' : ''}`} />
+    </motion.div>
   )
 }
 
+/* ───────────────────────── Hero ───────────────────────── */
+
 function Hero() {
+  const rise = (d: number) => ({
+    initial: { opacity: 0, y: 22 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.9, delay: d, ease },
+  })
   return (
-    <section className="grain relative isolate min-h-[100svh] overflow-hidden pb-20 pt-28 sm:pb-24 sm:pt-36">
-      <Aurora />
-      <div className="nova-grid pointer-events-none absolute inset-0 opacity-70" />
-      <div className="nova-starfield pointer-events-none absolute inset-0 opacity-50" />
-      <div className="pointer-events-none absolute -left-40 top-1/3 h-[32rem] w-[32rem] rounded-full border border-nova-violet/15" />
-      <div className="pointer-events-none absolute -left-24 top-[38%] h-[24rem] w-[24rem] rounded-full border border-nova-cyan/10" />
-
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-14 px-5 sm:px-8 lg:min-h-[calc(100svh-16rem)] lg:grid-cols-[1.06fr_.94fr] lg:gap-6">
-        <div className="text-center lg:text-left">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease }}
-            className="inline-flex items-center gap-2.5 rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.22em] text-nova-cyan backdrop-blur sm:text-[11px]"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-nova-cyan opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-nova-cyan" />
-            </span>
-            Digital invitations, reimagined
-          </motion.div>
-
-          <h1 className="mx-auto mt-7 max-w-3xl font-display text-[3.15rem] leading-[0.96] font-medium tracking-[-0.04em] text-balance sm:text-6xl lg:mx-0 lg:text-[5.2rem]">
-            <RevealText
-              parts={[
-                { text: 'Your celebration, a ' },
-                { text: 'world of its own.', className: 'gradient-text' },
-              ]}
-              delay={0.12}
-            />
-          </h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.34, ease }}
-            className="mx-auto mt-6 max-w-xl text-base leading-7 text-nova-muted sm:text-lg sm:leading-8 lg:mx-0"
-          >
-            Cinematic, motion-filled invitations for <RotatingWord />. One thoughtful link your guests can open, share and keep forever.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.44, ease }}
-            className="mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center lg:justify-start"
-          >
-            <MagneticLink
-              to="#invitations"
-              className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-r from-nova-violet to-nova-cyan px-7 text-sm font-bold text-nova-950 shadow-[0_16px_40px_-16px_rgba(95,225,232,.85)] transition hover:brightness-110"
-            >
-              Explore invitations
-              <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
-            </MagneticLink>
-            <Link
-              to="/invite/sakura-wedding"
-              className="group inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-7 text-sm font-semibold text-white backdrop-blur transition hover:border-nova-rose/60 hover:bg-white/[0.08]"
-            >
-              <Sparkles className="h-4 w-4 text-nova-rose" />
-              See the Sakura invite
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.7 }}
-            className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-3 text-xs font-medium text-nova-muted lg:justify-start"
-          >
-            {[
-              { icon: Smartphone, label: 'Made for phones' },
-              { icon: MapPin, label: 'Every detail, one link' },
-              { icon: ShieldCheck, label: 'Yours to keep' },
-            ].map(({ icon: Icon, label }) => (
-              <span key={label} className="inline-flex items-center gap-2">
-                <Icon className="h-4 w-4 text-nova-violet" strokeWidth={1.8} />
-                {label}
-              </span>
-            ))}
-          </motion.div>
-        </div>
-
-        <Showcase />
+    <section className="relative overflow-hidden pb-16 pt-28 sm:pt-36 lg:pb-24">
+      {/* soft blush washes */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-40 -top-40 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(244,214,208,.9),transparent_65%)]" />
+        <div className="absolute -right-32 top-24 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(247,228,205,.85),transparent_65%)]" />
       </div>
 
-      <div className="relative z-10 mx-auto mt-16 flex max-w-7xl items-center gap-4 px-5 sm:px-8">
-        <span className="hairline-glow h-px flex-1 opacity-50" />
-        <span className="text-center font-display text-sm italic text-nova-muted">Made for moments worth keeping</span>
-        <span className="hairline-glow h-px flex-1 opacity-50" />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.05fr_.95fr]">
+        <div className="text-center lg:text-left">
+          <motion.div {...rise(0)} className="flex justify-center lg:justify-start">
+            <span className="inline-flex items-center gap-2 rounded-full border border-site-line bg-white/70 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] text-site-rose">
+              <Sparkles className="h-3.5 w-3.5" /> Digital invitations
+            </span>
+          </motion.div>
+
+          <motion.h1 {...rise(0.08)} className="mt-6 font-playfair text-[2.9rem] leading-[1.02] text-site-ink text-balance sm:text-6xl lg:text-[4.5rem]">
+            Every celebration deserves <em className="text-site-wine">its own story.</em>
+          </motion.h1>
+
+          <motion.p {...rise(0.18)} className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-site-muted lg:mx-0">
+            Beautiful, interactive wedding and celebration invitations your guests open straight from WhatsApp — with the venue map, the
+            schedule, your music and an RSVP, all in one link.
+          </motion.p>
+
+          <motion.div {...rise(0.28)} className="mt-9 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
+            <a
+              href="#collection"
+              className="group inline-flex min-h-[54px] items-center justify-center gap-2 rounded-full bg-site-wine px-8 text-[15px] font-semibold text-site-paper shadow-[0_16px_30px_-16px_rgba(107,34,52,.8)] transition hover:bg-[#561a29]"
+            >
+              Browse the invitations
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </a>
+            <a
+              href="#how"
+              className="inline-flex min-h-[54px] items-center justify-center rounded-full border border-site-line bg-white/70 px-8 text-[15px] font-semibold text-site-ink transition hover:border-site-gold"
+            >
+              How it works
+            </a>
+          </motion.div>
+
+          <motion.ul {...rise(0.4)} className="mt-9 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-site-muted lg:justify-start">
+            {['Opens from WhatsApp', 'Map & RSVP built in', 'English & मराठी'].map((t) => (
+              <li key={t} className="flex items-center gap-2">
+                <span className="h-1 w-1 rotate-45 bg-site-gold" /> {t}
+              </li>
+            ))}
+          </motion.ul>
+        </div>
+
+        <HeroStack />
       </div>
     </section>
   )
 }
 
-function Showcase() {
+/** Three real invitations fanned like cards on a table, with roses tucked around them. */
+function HeroStack() {
+  const pick = (p: ThemeMeta['preview']) => themes.find((t) => t.preview === p)
+  const cards = [
+    { theme: pick('bodhi'), cls: 'left-[2%] top-[10%] -rotate-[9deg] z-10', delay: 0.35 },
+    { theme: pick('sakura'), cls: 'right-[2%] top-[8%] rotate-[8deg] z-10', delay: 0.45 },
+    { theme: pick('royal-rose'), cls: 'left-1/2 top-0 -translate-x-1/2 z-20', delay: 0.25 },
+  ].filter((c) => c.theme)
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 34, rotate: 1 }}
-      animate={{ opacity: 1, y: 0, rotate: 0 }}
-      transition={{ duration: 1, delay: 0.18, ease }}
-      className="relative mx-auto h-[24rem] w-full max-w-[30rem] sm:h-[29rem]"
-    >
-      <div className="pointer-events-none absolute inset-x-10 bottom-0 top-10 rounded-full bg-nova-violet/25 blur-[85px]" />
+    <div className="relative mx-auto h-[25rem] w-full max-w-[30rem] sm:h-[31rem]">
+      <img src={ROSE_CLUSTER} alt="" aria-hidden className="pointer-events-none absolute -left-10 -top-8 z-30 w-32 sm:w-40" />
+      <img src={ROSE_CLUSTER} alt="" aria-hidden className="pointer-events-none absolute -bottom-6 -right-8 z-30 w-36 rotate-180 sm:w-44" />
+      <Sprig className="pointer-events-none absolute -bottom-2 left-0 z-0 w-40 text-site-gold/60" />
 
-      {/* Back phone — Iron Man */}
-      <Link
-        to="/invite/iron-man-wedding"
-        aria-label="Open the Iron Man wedding invitation"
-        className="absolute right-0 top-10 w-[9.5rem] rotate-[9deg] rounded-[2rem] border border-white/15 bg-nova-800 p-1.5 shadow-[0_30px_60px_-20px_rgba(0,0,0,.9)] transition-transform hover:rotate-[5deg] hover:scale-[1.03] sm:right-2 sm:w-[11.5rem]"
-      >
-        <div className="relative aspect-[9/18.5] overflow-hidden rounded-[1.6rem]">
-          <ThemePreview preview="iron-man" />
-        </div>
-      </Link>
-
-      {/* Front phone — Sakura */}
-      <Link
-        to="/invite/sakura-wedding"
-        aria-label="Open the Sakura wedding invitation"
-        className="absolute left-0 top-2 z-10 w-[10.5rem] -rotate-[6deg] rounded-[2.15rem] border border-white/20 bg-nova-900 p-1.5 shadow-[0_45px_90px_-30px_rgba(143,123,255,.75)] transition-transform hover:-rotate-[2deg] hover:scale-[1.03] sm:left-6 sm:w-[12.5rem]"
-      >
-        <div className="relative aspect-[9/18.8] overflow-hidden rounded-[1.75rem]">
-          <ThemePreview preview="sakura" />
-          <div className="absolute left-1/2 top-1.5 h-3.5 w-16 -translate-x-1/2 rounded-full bg-black/70" />
-        </div>
-      </Link>
-
-      <div className="absolute left-0 top-[30%] z-20 hidden -rotate-3 rounded-2xl border border-white/15 bg-nova-900/85 px-4 py-3 shadow-2xl backdrop-blur sm:block">
-        <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-nova-rose">Your people, together</p>
-        <p className="mt-1 font-display text-xl italic text-white">All in one place.</p>
-      </div>
-      <div className="absolute bottom-[12%] right-0 z-20 hidden rotate-3 items-center gap-2 rounded-full border border-white/15 bg-nova-900/85 px-4 py-3 text-xs font-semibold text-white shadow-2xl backdrop-blur sm:flex">
-        <span className="grid h-7 w-7 place-items-center rounded-full bg-nova-cyan/15 text-nova-cyan">
-          <Check className="h-4 w-4" />
-        </span>
-        RSVP made simple
-      </div>
-
-      <p className="absolute inset-x-0 -bottom-1 z-20 text-center text-[10px] font-bold uppercase tracking-[0.24em] text-nova-muted/70">
-        One thoughtful link · everything in its place
-      </p>
-    </motion.div>
-  )
-}
-
-/* ------------------------------- Marquee band ------------------------------ */
-
-const celebrationWords = [
-  'Weddings',
-  'Engagements',
-  'Birthdays',
-  'Haldi & Mehendi',
-  'Anniversaries',
-  'Baby Showers',
-  'Receptions',
-]
-
-function MarqueeBand() {
-  return (
-    <div className="relative border-y border-white/10 bg-nova-violet/[0.06] py-5">
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#05060e,transparent_18%,transparent_82%,#05060e)]" />
-      <Marquee
-        items={celebrationWords.map((word) => (
-          <span key={word} className="inline-flex items-center gap-6 px-6 font-hud text-xs font-semibold uppercase tracking-[0.28em] text-nova-muted sm:text-sm">
-            {word}
-            <Sparkles className="h-3.5 w-3.5 shrink-0 text-nova-violet" />
-          </span>
-        ))}
-      />
+      {cards.map(({ theme, cls, delay }) => (
+        <motion.div
+          key={theme!.slug}
+          className={`absolute ${cls}`}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay, ease }}
+        >
+          <Link
+            to={`/invite/${theme!.slug}`}
+            aria-label={`Open the ${theme!.title} invitation`}
+            className={`block w-[10.5rem] rounded-t-[999px] rounded-b-[22px] border border-site-gold/50 bg-white p-1.5 shadow-[0_30px_50px_-28px_rgba(42,29,34,.6)] transition-transform duration-500 hover:-translate-y-2 sm:w-[13rem] ${theme!.preview === 'royal-rose' ? 'site-float' : ''}`}
+          >
+            <div className="aspect-[3/4.6] overflow-hidden rounded-t-[999px] rounded-b-[18px]">
+              <ThemePreview preview={theme!.preview} />
+            </div>
+          </Link>
+        </motion.div>
+      ))}
     </div>
   )
 }
 
-/* --------------------------- My Invitations section -------------------------- */
+/* ───────────────────────── Collection ───────────────────────── */
 
-function SectionTitle({ eyebrow, title, children }: { eyebrow: string; title: ReactNode; children?: ReactNode }) {
+function Collection() {
   return (
-    <div className="max-w-2xl">
-      <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-nova-cyan sm:text-[11px]">{eyebrow}</p>
-      <h2 className="mt-4 font-display text-4xl leading-[1.02] font-medium tracking-[-0.03em] text-balance sm:text-6xl">{title}</h2>
-      {children && <p className="mt-5 max-w-xl text-base leading-7 text-nova-muted sm:text-lg sm:leading-8">{children}</p>}
-    </div>
-  )
-}
-
-function InvitationsSection() {
-  return (
-    <section id="invitations" className="grain relative scroll-mt-20 overflow-hidden py-20 sm:py-28">
-      <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-nova-violet/12 blur-[110px]" />
-      <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-nova-cyan/10 blur-[110px]" />
-      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <SectionTitle eyebrow="My Invitations" title={<>Pick a world. <em className="font-medium text-nova-violet">Open the door.</em></>}>
-            Each card below is a real, working invitation. Tap <span className="font-semibold text-white">Open this invitation</span> to step inside — just like opening the card on WhatsApp.
-          </SectionTitle>
-          <Link
-            to="/themes"
-            className="group inline-flex shrink-0 items-center gap-2 self-start border-b border-nova-violet/50 pb-1 text-sm font-semibold text-white transition hover:border-nova-cyan md:mb-1 md:self-auto"
-          >
-            See all invitations <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
-        </div>
-
-        {/* Direct, always-visible routes — no hunting required. */}
-        <div className="mt-9 flex flex-wrap gap-3">
-          <Link
-            to="/invite/sakura-wedding"
-            className="group inline-flex min-h-12 items-center gap-2.5 rounded-full border border-nova-rose/40 bg-nova-rose/10 px-5 text-sm font-bold text-white transition hover:bg-nova-rose/20"
-          >
-            <Sparkles className="h-4 w-4 text-nova-rose" />
-            Open Sakura Wedding
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
-          <Link
-            to="/invite/iron-man-wedding"
-            className="group inline-flex min-h-12 items-center gap-2.5 rounded-full border border-nova-gold/40 bg-nova-gold/10 px-5 text-sm font-bold text-white transition hover:bg-nova-gold/20"
-          >
-            <Play className="h-4 w-4 text-nova-gold" />
-            Open Iron Man Wedding
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
-          <Link
-            to="/invite/bodhi-wedding"
-            className="group inline-flex min-h-12 items-center gap-2.5 rounded-full border border-nova-gold/40 bg-nova-gold/10 px-5 text-sm font-bold text-white transition hover:bg-nova-gold/20"
-          >
-            <Sparkles className="h-4 w-4 text-nova-gold" />
-            Open Bodhi Wedding
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
-          <Link
-            to="/invite/royal-rose-wedding"
-            className="group inline-flex min-h-12 items-center gap-2.5 rounded-full border border-nova-rose/40 bg-nova-rose/10 px-5 text-sm font-bold text-white transition hover:bg-nova-rose/20"
-          >
-            <Sparkles className="h-4 w-4 text-nova-rose" />
-            Open Royal Rose Wedding
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
-        </div>
-
-        <div className="mt-12 grid items-stretch gap-7 md:grid-cols-2">
-          {themes.map((theme, index) => (
-            <ThemeCard key={theme.slug} theme={theme} index={index} />
+    <section id="collection" className="relative scroll-mt-20 py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <Heading
+          eyebrow="The collection"
+          sub="Each one is its own little world — its own opening, artwork, music and story. Open any of them exactly as your guests would."
+        >
+          {themes.length} invitations, <em className="text-site-wine">{themes.length} little worlds</em>
+        </Heading>
+        <div className="mt-14 grid gap-7 md:grid-cols-2 lg:gap-9">
+          {themes.map((t, i) => (
+            <ThemeCard key={t.slug} theme={t} index={i} />
           ))}
         </div>
       </div>
@@ -337,121 +170,134 @@ function InvitationsSection() {
   )
 }
 
-/* --------------------------------- About ---------------------------------- */
+/* ───────────────────────── How it works ───────────────────────── */
 
-const moments = [
-  { number: '01', icon: Heart, title: 'Personal by nature', text: 'Your names, your people, your little details. The things that make the day unmistakably yours.' },
-  { number: '02', icon: WandSparkles, title: 'A little unexpected', text: 'Cinematic openings, original music and hidden surprises turn a link into a lovely discovery.' },
-  { number: '03', icon: Smartphone, title: 'Ready to share', text: 'Made for the phones guests already use, and easy to pass along to the people they love.' },
+const STEPS = [
+  { title: 'Choose a theme', text: 'Pick the world that feels like your celebration — royal, serene, cinematic or playful.' },
+  { title: 'Share your details', text: 'Names, families, dates, venues, photos and your song. We shape the invitation around them.' },
+  { title: 'Send one link', text: 'Guests open it on WhatsApp — the map, schedule, countdown and RSVP are all inside.' },
 ]
 
-function AboutSection() {
+function HowItWorks() {
   return (
-    <section id="about" className="grain relative scroll-mt-20 border-t border-white/10 bg-nova-900/60 py-20 sm:py-28">
-      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="grid gap-12 lg:grid-cols-[.78fr_1.22fr] lg:gap-20">
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-nova-gold sm:text-[11px]">Not just an invite</p>
-            <h2 className="mt-4 max-w-md font-display text-4xl leading-[1.02] font-medium tracking-[-0.03em] text-balance sm:text-6xl">
-              A card gets opened.
-              <br />
-              <em className="font-medium text-nova-cyan">A story stays.</em>
-            </h2>
-            <p className="mt-5 max-w-md text-base leading-7 text-nova-muted">
-              My Invites turns a celebration into a little place of its own — one link for the story, the schedule and everyone who matters.
-            </p>
-          </div>
+    <section id="how" className="relative scroll-mt-20 border-y border-site-line bg-site-blush/45 py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <Heading eyebrow="How it works">
+          From your details to <em className="text-site-wine">every guest’s phone</em>
+        </Heading>
+        <ol className="relative mt-16 grid gap-12 md:grid-cols-3 md:gap-8">
+          <span aria-hidden className="absolute left-[16%] right-[16%] top-8 hidden h-px bg-gradient-to-r from-transparent via-site-gold/70 to-transparent md:block" />
+          {STEPS.map((s, i) => (
+            <motion.li
+              key={s.title}
+              className="relative text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.7, delay: i * 0.12, ease }}
+            >
+              <span className="relative mx-auto grid h-16 w-16 place-items-center rounded-full border border-site-gold/60 bg-site-paper font-playfair text-2xl italic text-site-wine shadow-[0_10px_20px_-14px_rgba(107,34,52,.6)]">
+                {i + 1}
+              </span>
+              <h3 className="mt-5 font-playfair text-2xl text-site-ink">{s.title}</h3>
+              <p className="mx-auto mt-2 max-w-xs text-[15px] leading-relaxed text-site-muted">{s.text}</p>
+            </motion.li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )
+}
 
-          <div className="grid gap-4 sm:grid-cols-3">
-            {moments.map(({ number, icon: Icon, title, text }, index) => (
-              <motion.div
-                key={number}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: index * 0.07, ease }}
-              >
-                <SpotlightCard
-                  spotlightColor="rgba(95,225,232,.18)"
-                  className="glass-panel h-full rounded-2xl p-5 transition-colors hover:border-white/20 sm:p-6"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-display text-lg italic text-nova-cyan">{number}</span>
-                    <Icon className="h-5 w-5 text-nova-violet" strokeWidth={1.6} />
-                  </div>
-                  <h3 className="mt-8 font-display text-2xl font-medium text-white">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-nova-muted">{text}</p>
-                </SpotlightCard>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+/* ───────────────────────── Features ───────────────────────── */
 
-        <div id="how-it-works" className="mt-20 scroll-mt-24 border-t border-white/10 pt-8 sm:mt-24 sm:pt-10">
-          <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-            <div className="max-w-xs">
-              <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-nova-gold sm:text-[11px]">A lovely little process</p>
-              <h3 className="mt-3 font-display text-3xl font-medium">Three steps. Then let the celebrating begin.</h3>
-            </div>
-            <div className="grid flex-1 gap-6 sm:grid-cols-3 md:max-w-[52rem] md:gap-8">
-              {[
-                { icon: CalendarHeart, title: 'Choose a theme', text: 'Find the look that feels like your celebration.' },
-                { icon: Music2, title: 'Make it yours', text: 'Bring in your details, people and plans.' },
-                { icon: MessageCircle, title: 'Share the joy', text: 'Send one link and let everyone in.' },
-              ].map(({ icon: Icon, title, text }, i) => (
-                <div key={title} className="border-t border-white/15 pt-4">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-[10px] tracking-[0.18em] text-nova-violet">0{i + 1}</span>
-                    <Icon className="h-4 w-4 text-nova-muted" />
-                  </div>
-                  <h4 className="mt-3 font-display text-xl font-medium text-white">{title}</h4>
-                  <p className="mt-1 text-sm leading-6 text-nova-muted">{text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+const FEATURES = [
+  { icon: Sparkles, title: 'A memorable opening', text: 'An envelope, a book or a cinematic reveal — the first tap feels like an occasion.' },
+  { icon: MapPin, title: 'Directions in one tap', text: 'A map for every venue and a button that opens Google Maps.' },
+  { icon: MessageCircle, title: 'RSVP on WhatsApp', text: 'Guests reply in seconds; the message arrives ready to read.' },
+  { icon: CalendarHeart, title: 'Countdown & calendar', text: 'A live countdown and one-tap “Add to calendar” for each function.' },
+  { icon: Music2, title: 'Your song', text: 'Your music fades in softly once the invitation is opened.' },
+  { icon: Languages, title: 'English & मराठी', text: 'Switch languages in a tap, so every elder can read along.' },
+]
+
+function Features() {
+  return (
+    <section id="features" className="relative scroll-mt-20 py-20 sm:py-28">
+      <Sprig className="pointer-events-none absolute -left-6 top-24 hidden w-52 text-site-gold/35 lg:block" />
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <Heading eyebrow="In every invitation" sub="Made for phones first, because that is where your guests will open it.">
+          Everything guests need, <em className="text-site-wine">beautifully</em>
+        </Heading>
+        <div className="mt-14 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map(({ icon: Icon, title, text }, i) => (
+            <motion.div
+              key={title}
+              className="flex gap-4"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.6, delay: (i % 3) * 0.08, ease }}
+            >
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-site-blush text-site-wine">
+                <Icon className="h-5 w-5" strokeWidth={1.6} />
+              </span>
+              <div>
+                <h3 className="font-playfair text-xl text-site-ink">{title}</h3>
+                <p className="mt-1 text-[15px] leading-relaxed text-site-muted">{text}</p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
   )
 }
 
-/* -------------------------------- Contact --------------------------------- */
+/* ───────────────────────── Contact ───────────────────────── */
 
-function ContactSection() {
+function Contact() {
   return (
-    <section id="contact" className="scroll-mt-20 py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="glass-panel relative overflow-hidden rounded-[2rem] px-6 py-12 sm:px-12 sm:py-16">
-          <div className="pointer-events-none absolute -right-24 -top-36 h-96 w-96 rounded-full bg-nova-violet/25 blur-[90px]" />
-          <div className="nova-grid pointer-events-none absolute inset-0 opacity-40" />
-          <div className="relative max-w-2xl">
-            <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-nova-cyan sm:text-[11px]">Your story goes here</p>
-            <h2 className="mt-4 font-display text-4xl leading-[1.02] font-medium tracking-[-0.03em] text-balance sm:text-6xl">
-              Let&apos;s make the first impression <em className="font-medium text-nova-rose">a lovely one.</em>
-            </h2>
-            <p className="mt-5 max-w-lg text-base leading-7 text-nova-muted">
-              Tell us what you&apos;re celebrating. We&apos;ll help you find an invitation that feels like the start of your story.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="mailto:hello@example.com"
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-nova-violet to-nova-cyan px-7 text-sm font-bold text-nova-950 transition hover:brightness-110"
-              >
-                Tell us about it <ArrowRight className="h-4 w-4" />
-              </a>
-              <a
-                href="https://wa.me/?text=Hi%20My%20Invites!%20I%27d%20love%20a%20digital%20invitation."
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-7 text-sm font-semibold text-white transition hover:bg-white/[0.08]"
-              >
-                <MessageCircle className="h-4 w-4 text-emerald-400" /> Chat on WhatsApp
-              </a>
-            </div>
+    <section id="contact" className="scroll-mt-20 px-5 pb-24 pt-4 sm:px-8">
+      <motion.div
+        className="relative mx-auto max-w-3xl overflow-hidden rounded-[30px] border border-site-line bg-white px-6 py-14 text-center shadow-[0_40px_70px_-50px_rgba(42,29,34,.6)] sm:px-14 sm:py-16"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.8, ease }}
+      >
+        {/* invitation-card double border */}
+        <div aria-hidden className="pointer-events-none absolute inset-3 rounded-[22px] border border-site-gold/50" />
+        <div aria-hidden className="pointer-events-none absolute inset-[18px] rounded-[18px] border border-site-gold/25" />
+        <RoseImg tone="blush" className="absolute -left-8 -top-8 w-28" />
+        <RoseImg tone="wine" className="absolute -bottom-8 -right-8 w-28" />
+
+        <div className="relative">
+          <WaxSeal className="mx-auto h-14 w-14" />
+          <Eyebrow className="mt-5">Planning a celebration?</Eyebrow>
+          <h2 className="mt-4 font-playfair text-[2.3rem] leading-[1.1] text-site-ink text-balance sm:text-5xl">
+            Let’s begin <em className="text-site-wine">your story.</em>
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-site-muted">
+            Tell us what you’re celebrating and when. We’ll help you choose a theme and make it unmistakably yours.
+          </p>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <a
+              href={CONTACT.whatsappLink('Hi! I’d love a digital invitation from My Invites.')}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex min-h-[54px] items-center justify-center gap-2 rounded-full bg-site-wine px-8 text-[15px] font-semibold text-site-paper shadow-[0_16px_30px_-16px_rgba(107,34,52,.8)] transition hover:bg-[#561a29]"
+            >
+              <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
+            </a>
+            <a
+              href="#collection"
+              className="inline-flex min-h-[54px] items-center justify-center rounded-full border border-site-line px-8 text-[15px] font-semibold text-site-ink transition hover:border-site-gold"
+            >
+              See the invitations
+            </a>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

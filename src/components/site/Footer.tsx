@@ -1,84 +1,71 @@
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, Camera, Globe, MessageCircle, PlayCircle, Sparkles } from 'lucide-react'
+import { MessageCircle } from 'lucide-react'
 import Logo from './Logo'
-
-// Placeholder social links — replace "#" with real profiles when ready.
-const socials = [
-  { icon: Camera, label: 'Instagram', href: '#' },
-  { icon: Globe, label: 'Facebook', href: '#' },
-  { icon: PlayCircle, label: 'YouTube', href: '#' },
-  { icon: MessageCircle, label: 'WhatsApp', href: '#' },
-]
+import { Sprig } from './Ornaments'
+import { themes } from '../../themes/registry'
+import { DESIGNER } from '../../lib/credits'
+import { CONTACT } from '../../lib/contact'
 
 const year = new Date().getFullYear()
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-nova-900">
-      <div className="pointer-events-none absolute -top-48 left-1/2 h-96 w-[46rem] -translate-x-1/2 rounded-full bg-nova-violet/15 blur-[110px]" />
-      <div className="nova-starfield pointer-events-none absolute inset-0 opacity-40" />
-      <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="relative overflow-hidden border-t border-site-line bg-site-cream">
+      <Sprig className="pointer-events-none absolute -right-6 top-6 w-56 text-site-gold/30" />
+      <div className="relative mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <Logo />
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-nova-muted">
-            Cinematic digital invitations that turn your special moments into stories your guests will remember — and open straight from WhatsApp.
+          <p className="mt-4 max-w-xs text-sm leading-relaxed text-site-muted">
+            Digital invitations that open like a story — made for weddings and celebrations, and shared in one WhatsApp link.
           </p>
-          <div className="mt-6 flex gap-3">
-            {socials.map(({ icon: Icon, label, href }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={`${label} (coming soon)`}
-                title={`${label} — coming soon`}
-                className="grid h-10 w-10 place-items-center rounded-full border border-white/12 text-nova-muted transition hover:border-nova-cyan/60 hover:text-nova-cyan"
-              >
-                <Icon className="h-4 w-4" />
-              </a>
-            ))}
-          </div>
+          <a
+            href={CONTACT.whatsappLink('Hi! I’d love a digital invitation from My Invites.')}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-5 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-site-line bg-site-paper px-4 text-sm font-semibold text-site-ink transition hover:border-site-gold"
+          >
+            <MessageCircle className="h-4 w-4 text-emerald-600" /> Chat on WhatsApp
+          </a>
         </div>
 
         <div>
-          <h4 className="font-display text-xl text-nova-text">Explore</h4>
-          <ul className="mt-4 space-y-2.5 text-sm text-nova-muted">
-            <li><Link className="transition hover:text-nova-cyan" to="/">Home</Link></li>
-            <li><Link className="transition hover:text-nova-cyan" to="/themes">My Invitations</Link></li>
-            <li><Link className="transition hover:text-nova-cyan" to="/#about">About Us</Link></li>
-            <li><Link className="transition hover:text-nova-cyan" to="/#contact">Contact</Link></li>
+          <h4 className="font-playfair text-lg text-site-ink">Explore</h4>
+          <ul className="mt-3 space-y-1 text-sm text-site-muted">
+            {[
+              ['/', 'Home'],
+              ['/#collection', 'Invitations'],
+              ['/#how', 'How it works'],
+              ['/#contact', 'Contact'],
+            ].map(([to, label]) => (
+              <li key={label}>
+                <Link className="inline-flex min-h-[36px] items-center transition hover:text-site-wine" to={to}>
+                  {label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         <div>
-          <h4 className="font-display text-xl text-nova-text">Open an invitation</h4>
-          <ul className="mt-4 space-y-2.5 text-sm text-nova-muted">
-            <li>
-              <Link className="group inline-flex items-center gap-1.5 transition hover:text-nova-rose" to="/invite/sakura-wedding">
-                <Sparkles className="h-3.5 w-3.5 text-nova-rose" /> Sakura Wedding <ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:opacity-100" />
-              </Link>
-            </li>
-            <li>
-              <Link className="group inline-flex items-center gap-1.5 transition hover:text-nova-gold" to="/invite/iron-man-wedding">
-                <Sparkles className="h-3.5 w-3.5 text-nova-gold" /> Iron Man Wedding <ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:opacity-100" />
-              </Link>
-            </li>
-            <li>
-              <Link className="group inline-flex items-center gap-1.5 transition hover:text-nova-gold" to="/invite/bodhi-wedding">
-                <Sparkles className="h-3.5 w-3.5 text-nova-gold" /> Bodhi Wedding <ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:opacity-100" />
-              </Link>
-            </li>
-            <li>
-              <Link className="group inline-flex items-center gap-1.5 transition hover:text-nova-rose" to="/invite/royal-rose-wedding">
-                <Sparkles className="h-3.5 w-3.5 text-nova-rose" /> Royal Rose Wedding <ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:opacity-100" />
-              </Link>
-            </li>
-            <li className="pt-2 text-xs uppercase tracking-[0.16em] text-nova-muted/60">Weddings · Birthdays · Engagements</li>
+          <h4 className="font-playfair text-lg text-site-ink">The collection</h4>
+          <ul className="mt-3 space-y-1 text-sm text-site-muted">
+            {themes.map((t) => (
+              <li key={t.slug}>
+                <Link className="inline-flex min-h-[36px] items-center transition hover:text-site-wine" to={`/invite/${t.slug}`}>
+                  {t.title} {t.category}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-5 py-6 text-xs text-nova-muted/60 sm:flex-row sm:px-8">
-          <p>© {year} My Invites. All rights reserved.</p>
-          <p className="font-display text-sm italic text-nova-muted">Every Celebration Deserves Its Own Story.</p>
+      <div className="relative border-t border-site-line">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-5 py-5 text-xs text-site-muted sm:flex-row sm:px-8">
+          <p>© {year} My Invites</p>
+          <p className="font-playfair text-sm italic text-site-ink/80">Every celebration deserves its own story.</p>
+          <p>
+            {DESIGNER.label} <span className="font-semibold text-site-wine">{DESIGNER.name}</span>
+          </p>
         </div>
       </div>
     </footer>
