@@ -118,6 +118,13 @@ export default function Navbar() {
               >
                 Bodhi Wedding <ArrowUpRight className="h-4 w-4" />
               </Link>
+              <Link
+                to="/invite/royal-rose-wedding"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-4 text-sm font-bold text-white"
+              >
+                Royal Rose Wedding <ArrowUpRight className="h-4 w-4" />
+              </Link>
             </div>
           </motion.div>
         )}

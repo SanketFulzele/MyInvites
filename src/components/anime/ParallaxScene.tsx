@@ -20,6 +20,23 @@ export default function ParallaxScene({ children, className = '', imageSrc, alt,
   const root = useRef<HTMLDivElement>(null)
   const reduced = usePrefersReducedMotion()
 
+  // Promote parallax layers to GPU layers only while the scene is near the
+  // viewport (filters then rasterise once), and pause looping CSS animations
+  // in scenes that are off-screen.
+  useEffect(() => {
+    const el = root.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        el.classList.toggle('scene-active', entry.isIntersecting)
+        el.classList.toggle('scene-offscreen', !entry.isIntersecting)
+      },
+      { rootMargin: '300px 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
   useEffect(() => {
     if (reduced || !root.current) return
     const ctx = gsap.context(() => {

@@ -67,7 +67,7 @@ export default function EpisodeNav({ episodes }: { episodes: EpisodeLink[] }) {
 
       <nav
         aria-label="Episode navigator (mobile)"
-        className="fixed inset-x-0 bottom-0 z-30 border-t border-gold-leaf/30 bg-washi-paper/90 px-2 py-2 backdrop-blur-md lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-30 border-t border-gold-leaf/30 bg-washi-paper/[.97] px-2 py-2 lg:hidden"
       >
         <div className="flex snap-x gap-2 overflow-x-auto pb-[env(safe-area-inset-bottom)]">
           {episodes.map((episode, i) => (

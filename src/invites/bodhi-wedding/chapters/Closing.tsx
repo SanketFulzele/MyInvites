@@ -1,3 +1,4 @@
+import { DESIGNER } from '../../../lib/credits'
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Mail, Share2 } from 'lucide-react'
@@ -85,7 +86,10 @@ export default function Closing({ onReplay }: { onReplay: () => void }) {
             </button>
           </div>
         </div>
-        <p className="mt-6 font-mukta text-xs text-bodhi-ivory/40">
+        <p className="mt-6 font-cinzel text-[11px] tracking-[0.25em] text-bodhi-ivory/55">
+          {DESIGNER.label.toUpperCase()} <span className="font-display text-lg italic tracking-normal text-bodhi-saffron">{DESIGNER.name}</span>
+        </p>
+        <p className="mt-1 font-mukta text-xs text-bodhi-ivory/40">
           Crafted with love by <a href="/" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">My Invites</a>
         </p>
       </footer>

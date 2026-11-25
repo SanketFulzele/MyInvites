@@ -1,3 +1,4 @@
+import { DESIGNER } from '../lib/credits'
 import { motion } from 'framer-motion'
 import { StarryNight } from '../art/Landscapes'
 import SakuraTree from '../art/SakuraTree'
@@ -134,6 +135,10 @@ export default function ClosingSection() {
               Back to the beginning
             </a>
           </div>
+
+          {/* end-credit style designer line */}
+          <p className="mt-10 text-[11px] font-semibold uppercase tracking-[0.36em] text-gold-leaf/80">{DESIGNER.label}</p>
+          <p className="mt-1 font-display text-2xl italic text-sakura-cream">{DESIGNER.name}</p>
 
           <div className="mt-12 flex flex-col items-center gap-2">
             <EggCounter />

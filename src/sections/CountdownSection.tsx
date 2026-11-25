@@ -134,7 +134,7 @@ export default function CountdownSection() {
                 key={cell.label}
                 role="timer"
                 aria-label={`${cell.label.toLowerCase()} remaining: ${cell.value}`}
-                className="relative flex min-h-[8.5rem] flex-col items-center justify-center rounded-2xl border border-gold-leaf/45 bg-[linear-gradient(180deg,rgba(242,163,58,0.2),rgba(31,35,80,0.6))] px-3 py-5 shadow-[0_0_30px_rgba(242,163,58,0.16)] backdrop-blur-sm"
+                className="relative flex min-h-[8.5rem] flex-col items-center justify-center rounded-2xl border border-gold-leaf/45 bg-[linear-gradient(180deg,rgba(242,163,58,0.2),rgba(31,35,80,0.6))] px-3 py-5 shadow-[0_0_30px_rgba(242,163,58,0.16)]"
               >
                 <span
                   aria-hidden="true"

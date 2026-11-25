@@ -1,11 +1,13 @@
 import type { ThemeMeta } from '../../themes/registry'
 import { AshokChakra, BodhiCanopy, Buddha } from '../../invites/bodhi-wedding/art'
+import { Medallion, ROSE_CLUSTER } from '../../invites/royal-rose-wedding/art'
 
 /** Pure-CSS preview artwork for each theme (no external images needed). */
 export default function ThemePreview({ preview }: { preview: ThemeMeta['preview'] }) {
   if (preview === 'iron-man') return <IronManPreview />
   if (preview === 'sakura') return <SakuraPreview />
   if (preview === 'bodhi') return <BodhiPreview />
+  if (preview === 'royal-rose') return <RoyalRosePreview />
   return null
 }
 
@@ -104,6 +106,26 @@ function IronManPreview() {
           <span key={c} className={`absolute h-5 w-5 border-reactor/60 ${c}`} />
         ),
       )}
+    </div>
+  )
+}
+
+function RoyalRosePreview() {
+  return (
+    <div className="relative h-full w-full overflow-hidden" style={{ background: 'radial-gradient(120% 80% at 50% 40%, #fff6f2 0%, #f7e1df 55%, #eec7c8 100%)' }}>
+      <img src={ROSE_CLUSTER} alt="" aria-hidden className="absolute -left-8 -top-8 w-32 opacity-90" />
+      <img src={ROSE_CLUSTER} alt="" aria-hidden className="absolute -bottom-8 -right-8 w-32 rotate-180 opacity-90" />
+      <div className="absolute left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2" style={{ perspective: 600 }}>
+        <div className="rr-velvet relative flex h-36 w-28 flex-col items-center justify-center rounded-r-md rounded-l-sm shadow-[0_20px_30px_-14px_rgba(74,18,32,.8)]" style={{ transform: 'rotateY(-16deg) rotateX(6deg)' }}>
+          <div className="absolute inset-1.5 rounded-sm border border-[#c6a15b]/80" />
+          <Medallion className="h-12 w-12" />
+          <p className="mt-2 font-playfair text-[10px] italic rr-gold-text">Akhilesh &amp; Aarti</p>
+        </div>
+      </div>
+      <div className="absolute inset-x-0 bottom-5 text-center">
+        <p className="font-montserrat text-[9px] font-semibold uppercase tracking-[0.3em] text-rr-gold-deep">Tap the book to open</p>
+        <p className="mt-1 font-playfair text-2xl italic text-rr-wine">Royal Rose</p>
+      </div>
     </div>
   )
 }

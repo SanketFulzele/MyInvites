@@ -94,6 +94,20 @@
   --color-bodhi-parchment: #f4e9d2;
   --color-bodhi-ink: #3b2416;
   --color-bodhi-dusk: #14204a;
+
+  /* Royal Rose wedding */
+  --font-playfair: "Playfair Display", Georgia, serif;
+  --font-montserrat: "Montserrat", system-ui, sans-serif;
+  --color-rr-ivory: #fdf7f0;
+  --color-rr-blush: #f7e1df;
+  --color-rr-petal: #f1c6c4;
+  --color-rr-rose: #c34f62;
+  --color-rr-wine: #6e1f2f;
+  --color-rr-wine-deep: #4a1220;
+  --color-rr-gold: #c6a15b;
+  --color-rr-gold-deep: #9a7637;
+  --color-rr-champagne: #e8d3a8;
+  --color-rr-ink: #3d2027;
 }
 
 /* Bodhi: warm parchment with a faint mandala watermark */
@@ -342,7 +356,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after {
+  /* .motion-keep: themes whose brief asks to keep animating (battery-saver phones report reduced motion) */
+  :where(*:not(.motion-keep, .motion-keep *)), :where(*:not(.motion-keep, .motion-keep *))::before, :where(*:not(.motion-keep, .motion-keep *))::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
@@ -351,3 +366,47 @@ body {
 @keyframes bodhi-breathe { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
 .bodhi-breathe { animation: bodhi-breathe 6s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .bodhi-breathe { animation: none; opacity: .85; } }
+
+/* ───────── Royal Rose wedding ───────── */
+.rr-paper {
+  background-color: #fdf7f0;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .3  0 0 0 0 .3  0 0 0 .06 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>");
+}
+.rr-velvet {
+  background-color: #6e1f2f;
+  background-image:
+    radial-gradient(120% 90% at 30% 20%, rgba(255, 170, 180, .22), transparent 55%),
+    radial-gradient(140% 120% at 80% 110%, rgba(20, 0, 6, .55), transparent 60%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='v'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 .8  0 0 0 0 .85  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23v)'/></svg>");
+}
+.rr-gold-text {
+  background: linear-gradient(105deg, #9a7637 0%, #f4e2b4 35%, #c6a15b 55%, #f8ecc9 75%, #a8833f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@keyframes rr-sway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+@keyframes rr-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes rr-zoom { from { transform: scale(1.05); } to { transform: scale(1.22); } }
+@keyframes rr-finger { 0%, 15% { transform: translateY(-6px); opacity: 0; } 30% { opacity: 1; } 70% { transform: translateY(34px); opacity: 1; } 100% { transform: translateY(40px); opacity: 0; } }
+@keyframes rr-twinkle { 0%, 100% { opacity: 0; transform: scale(.4) rotate(0deg); } 50% { opacity: 1; transform: scale(1) rotate(45deg); } }
+@keyframes rr-pulse { 0% { transform: translate(-50%, -50%) scale(.4); opacity: .8; } 100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; } }
+@keyframes rr-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+@keyframes rr-spin { to { transform: rotate(360deg); } }
+.rr-sway { transform-origin: 50% 0; animation: rr-sway 5.5s ease-in-out infinite; }
+.rr-float { animation: rr-float 6s ease-in-out infinite; }
+.rr-zoom { animation: rr-zoom 22s ease-in-out infinite alternate; }
+.rr-twinkle { animation: rr-twinkle 2.6s ease-in-out infinite; }
+.rr-bob { animation: rr-bob 1.8s ease-in-out infinite; }
+.rr-spin { animation: rr-spin 30s linear infinite; }
+/* pause looping decoration while it is off-screen (set by an IntersectionObserver) */
+.rr-offscreen, .rr-offscreen * { animation-play-state: paused !important; }
+
+/* Sakura tree: one composited layer sways (no per-frame SVG repaint) */
+@keyframes sakura-tree-sway { 0%, 100% { transform: rotate(-0.7deg); } 50% { transform: rotate(0.7deg); } }
+.sakura-tree-sway { transform-origin: 45% 100%; will-change: transform; animation: sakura-tree-sway 6.5s ease-in-out infinite; }
+
+/* Parallax scenes: GPU layers only near the viewport; loops paused off-screen */
+.scene-active [data-depth] { will-change: transform; }
+.scene-offscreen, .scene-offscreen * { animation-play-state: paused !important; }

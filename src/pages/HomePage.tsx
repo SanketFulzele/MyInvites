@@ -317,6 +317,14 @@ function InvitationsSection() {
             Open Bodhi Wedding
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
+          <Link
+            to="/invite/royal-rose-wedding"
+            className="group inline-flex min-h-12 items-center gap-2.5 rounded-full border border-nova-rose/40 bg-nova-rose/10 px-5 text-sm font-bold text-white transition hover:bg-nova-rose/20"
+          >
+            <Sparkles className="h-4 w-4 text-nova-rose" />
+            Open Royal Rose Wedding
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
         </div>
 
         <div className="mt-12 grid items-stretch gap-7 md:grid-cols-2">

@@ -51,7 +51,7 @@ export default function SideDrawer({ playing, onToggleMusic, scoreTitle, listen 
         onClick={() => setOpen(true)}
         aria-label="Open invitation menu"
         aria-expanded={open}
-        className="fixed right-4 top-4 z-40 grid h-11 w-11 place-items-center rounded-full border border-sakura-gold/40 bg-sakura-cream/85 text-sakura-plum shadow-[0_10px_30px_-18px_rgba(36,27,49,.7)] backdrop-blur-md transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sakura-gold"
+        className="fixed right-4 top-4 z-40 grid h-11 w-11 place-items-center rounded-full border border-sakura-gold/40 bg-sakura-cream/95 text-sakura-plum shadow-[0_10px_30px_-18px_rgba(36,27,49,.7)] transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sakura-gold"
       >
         <Menu className="h-5 w-5" strokeWidth={1.6} />
       </button>

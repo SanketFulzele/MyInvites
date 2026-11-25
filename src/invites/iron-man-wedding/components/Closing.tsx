@@ -1,3 +1,4 @@
+import { DESIGNER } from '../../../lib/credits'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -76,7 +77,10 @@ export default function Closing({ config }: { config: WeddingInviteConfig }) {
             )}
           </AnimatePresence>
         </div>
-        <p className="mt-4 font-body text-xs text-paper/35">
+        <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.25em] text-paper/45">
+          {DESIGNER.label} <span className="font-display text-base normal-case tracking-normal italic text-iron-gold">{DESIGNER.name}</span>
+        </p>
+        <p className="mt-2 font-body text-xs text-paper/35">
           Crafted with love by{' '}
           <Link to="/" className="text-paper/55 underline-offset-4 active:underline">
             My Invites

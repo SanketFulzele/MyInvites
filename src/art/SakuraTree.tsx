@@ -1,5 +1,4 @@
-import { useEffect, useRef } from 'react'
-import { gsap } from '../lib/gsapSetup'
+import { useRef } from 'react'
 import { usePrefersReducedMotion } from '../hooks/useReducedMotion'
 
 interface SakuraTreeProps {
@@ -154,25 +153,6 @@ export default function SakuraTree({ className = '', sway = true, imageSrc, aria
   const root = useRef<SVGSVGElement>(null)
   const reduced = usePrefersReducedMotion()
 
-  useEffect(() => {
-    if (reduced || !sway || !root.current) return
-    const ctx = gsap.context(() => {
-      const groups = gsap.utils.toArray<SVGGElement>('[data-branch]', root.current)
-      groups.forEach((group, i) => {
-        const origin = group.dataset.origin ?? '50% 100%'
-        gsap.set(group, { svgOrigin: origin })
-        gsap.to(group, {
-          rotation: i % 2 === 0 ? 1.5 : -1.5,
-          duration: 3.6 + (i % 3) * 0.7,
-          ease: 'sine.inOut',
-          repeat: -1,
-          yoyo: true,
-          delay: i * 0.16,
-        })
-      })
-    }, root)
-    return () => ctx.revert()
-  }, [reduced, sway])
 
   return (
     <div
@@ -181,7 +161,7 @@ export default function SakuraTree({ className = '', sway = true, imageSrc, aria
       role={ariaLabel ? 'img' : undefined}
       aria-label={ariaLabel}
     >
-      <div className="relative h-full w-full">
+      <div className={`relative h-full w-full ${sway && !reduced ? 'sakura-tree-sway' : ''}`}>
         {imageSrc && (
           <img src={imageSrc} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
         )}
@@ -203,16 +183,16 @@ export default function SakuraTree({ className = '', sway = true, imageSrc, aria
               <stop offset="0" stopColor="#6b4653" />
               <stop offset="1" stopColor="#39283d" />
             </linearGradient>
-            <filter id="st-halo" x="-30%" y="-30%" width="160%" height="160%">
-              <feGaussianBlur stdDeviation="12" />
-            </filter>
+            <radialGradient id="st-halo-a"><stop offset="0" stopColor="#f7d9e1" /><stop offset="1" stopColor="#f7d9e1" stopOpacity="0" /></radialGradient>
+            <radialGradient id="st-halo-b"><stop offset="0" stopColor="#f4c2ce" /><stop offset="1" stopColor="#f4c2ce" stopOpacity="0" /></radialGradient>
+            <radialGradient id="st-halo-c"><stop offset="0" stopColor="#ffe4ea" /><stop offset="1" stopColor="#ffe4ea" stopOpacity="0" /></radialGradient>
           </defs>
 
           {/* Distant bloom haze */}
-          <g filter="url(#st-halo)" opacity="0.38">
-            <ellipse cx="180" cy="230" rx="150" ry="105" fill="#f7d9e1" />
-            <ellipse cx="700" cy="180" rx="170" ry="110" fill="#f4c2ce" />
-            <ellipse cx="420" cy="70" rx="130" ry="80" fill="#ffe4ea" />
+          <g opacity="0.5">
+            <ellipse cx="180" cy="230" rx="180" ry="130" fill="url(#st-halo-a)" />
+            <ellipse cx="700" cy="180" rx="200" ry="135" fill="url(#st-halo-b)" />
+            <ellipse cx="420" cy="70" rx="160" ry="105" fill="url(#st-halo-c)" />
           </g>
 
           {/* Gnarled trunk with bark strokes and knots */}

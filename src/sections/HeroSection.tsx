@@ -247,7 +247,7 @@ export default function HeroSection() {
           <button
             type="button"
             onClick={finish}
-            className="absolute bottom-[13vh] right-5 z-50 rounded-full border border-sakura-cream/45 bg-sumi/50 px-5 py-2 text-[10px] font-semibold tracking-[0.22em] uppercase text-sakura-cream backdrop-blur-sm transition-colors hover:bg-sumi/80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-leaf"
+            className="absolute bottom-[13vh] right-5 z-50 rounded-full border border-sakura-cream/45 bg-sumi/70 px-5 py-2 text-[10px] font-semibold tracking-[0.22em] uppercase text-sakura-cream transition-colors hover:bg-sumi/80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-leaf"
           >
             Skip intro
           </button>

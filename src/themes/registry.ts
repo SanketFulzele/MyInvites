@@ -18,7 +18,7 @@ export interface ThemeMeta {
   /** Short mood words shown as chips on the card */
   highlights: string[]
   /** Which preview artwork the theme card renders */
-  preview: 'iron-man' | 'sakura' | 'bodhi'
+  preview: 'iron-man' | 'sakura' | 'bodhi' | 'royal-rose'
   /** Lazily loaded so each theme ships as its own bundle */
   component: LazyExoticComponent<ComponentType>
 }
@@ -58,6 +58,16 @@ export const themes: ThemeMeta[] = [
     highlights: ['Envelope opening', 'Pipal leaves', 'English + मराठी', 'RSVP'],
     preview: 'bodhi',
     component: lazy(() => import('../invites/bodhi-wedding/BodhiInvite')),
+  },
+  {
+    slug: 'royal-rose-wedding',
+    title: 'Royal Rose',
+    category: 'Wedding',
+    description:
+      'A wine-velvet book that swings open in 3D, a pull-to-reveal Save the Date scroll, swipeable festivity cards and roses that bloom as you scroll — for Akhilesh & Aarti.',
+    highlights: ['3D book opening', 'Pull-the-tassel scroll', 'Swipe carousels', 'English + मराठी'],
+    preview: 'royal-rose',
+    component: lazy(() => import('../invites/royal-rose-wedding/RoyalRoseInvite')),
   },
 ]
 
