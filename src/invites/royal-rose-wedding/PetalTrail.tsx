@@ -109,7 +109,7 @@ export default function PetalTrail() {
 
     const spawn = (x: number, y: number, vx: number, vy: number, sparkle: boolean) => {
       if (parts.length >= MAX) parts.shift()
-      const life = sparkle ? 38 + Math.random() * 20 : 70 + Math.random() * 50
+      const life = sparkle ? 42 + Math.random() * 22 : 85 + Math.random() * 55
       parts.push({
         x,
         y,
@@ -117,7 +117,7 @@ export default function PetalTrail() {
         vy: vy * 0.12 + (Math.random() - 0.5) * 1.2 - (sparkle ? 0.3 : 0.6),
         rot: Math.random() * Math.PI * 2,
         spin: (Math.random() - 0.5) * 0.12,
-        size: sparkle ? 10 + Math.random() * 8 : 9 + Math.random() * 9,
+        size: sparkle ? 12 + Math.random() * 9 : 13 + Math.random() * 11,
         life,
         maxLife: life,
         phase: Math.random() * Math.PI * 2,
