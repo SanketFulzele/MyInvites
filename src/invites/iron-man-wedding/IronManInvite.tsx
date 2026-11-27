@@ -15,6 +15,7 @@ import Venue from './components/Venue'
 import Countdown from './components/Countdown'
 import Rsvp from './components/Rsvp'
 import Closing from './components/Closing'
+import { HudDust, SparkTrail } from './components/Sparks'
 
 export default function IronManInvite() {
   return (
@@ -98,6 +99,9 @@ function Invitation() {
       {entered && (
         <TopBar monogram={`${config.groom.name[0]} × ${config.bride.name[0]}`} nav={nav} playing={music.playing} onToggleMusic={music.toggle} />
       )}
+
+      {entered && <HudDust />}
+      <SparkTrail />
 
       <main>
         <Hero config={config} ready={entered} date={heroDate} />

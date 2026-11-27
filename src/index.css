@@ -431,3 +431,9 @@ body {
 }
 @keyframes site-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 .site-float { animation: site-float 7s ease-in-out infinite; }
+
+/* Iron Man: heart reactor */
+@keyframes ironheart-beat { 0%, 100% { transform: scale(1); } 12% { transform: scale(1.045); } 24% { transform: scale(1); } 36% { transform: scale(1.03); } 48% { transform: scale(1); } }
+.ironheart-beat { transform-origin: 50% 55%; will-change: transform; animation: ironheart-beat 1.6s ease-in-out infinite; }
+@keyframes ironheart-ecg { from { stroke-dashoffset: 100; } to { stroke-dashoffset: -100; } }
+.ironheart-ecg { stroke-dasharray: 18 82; animation: ironheart-ecg 2.4s linear infinite; filter: drop-shadow(0 0 3px rgba(102, 217, 255, .8)); }

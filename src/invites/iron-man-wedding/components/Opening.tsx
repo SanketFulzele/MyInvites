@@ -1,4 +1,5 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { guestName } from '../copy'
 import { motion } from 'framer-motion'
 import Reactor from './Reactor'
 import { EASE } from './ui'
@@ -26,6 +27,7 @@ interface Props {
  * Scene 3 — on Enter, reactor light floods the screen into the invitation.
  */
 export default function Opening({ presenter, occasion, groom, bride, tagline, dateLine, placeLine, onEnter, onComplete }: Props) {
+  const guest = useMemo(guestName, [])
   const reduced = usePrefersReducedMotion()
   const [phase, setPhase] = useState<Phase>(reduced ? 'reveal' : 'dark')
   const [skipped, setSkipped] = useState(reduced)
@@ -137,6 +139,12 @@ export default function Opening({ presenter, occasion, groom, bride, tagline, da
           <motion.p {...fade(0.3, 0)} className="mt-2 font-mono text-[11px] uppercase tracking-[0.24em] text-champagne sm:text-xs">
             {occasion}
           </motion.p>
+          {guest && (
+            <motion.p {...fade(0.4, 0)} className="mt-3 inline-flex items-center gap-2 rounded-full border border-arc/30 px-3 py-1 font-mono text-[11px] tracking-[0.16em] text-arc/90">
+              <span className="h-1.5 w-1.5 rounded-full bg-arc shadow-[0_0_8px_rgba(102,217,255,.9)]" />
+              GUEST IDENTIFIED · <span className="normal-case tracking-normal text-paper">{guest}</span>
+            </motion.p>
+          )}
 
           <h1 className="mt-7 font-display font-medium leading-none">
             <span className="block overflow-hidden pb-2">

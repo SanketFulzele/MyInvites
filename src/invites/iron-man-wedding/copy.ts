@@ -3,10 +3,21 @@
  * This is theme copy, not wedding data: names are passed in from config.
  */
 
-export const greeting = (d = new Date()) => {
+/** Guest name from a personal link: /invite/iron-man-wedding?guest=Asha */
+export function guestName(): string | null {
+  try {
+    const raw = new URLSearchParams(window.location.search).get('guest')
+    const clean = raw?.replace(/[<>]/g, '').trim().slice(0, 40)
+    return clean || null
+  } catch {
+    return null
+  }
+}
+
+export const greeting = (d = new Date(), name: string | null = guestName()) => {
   const h = d.getHours()
   const part = h < 5 ? 'evening' : h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'
-  return `Good ${part}. The celebration is ready.`
+  return name ? `Good ${part}, ${name}. The celebration is ready.` : `Good ${part}. The celebration is ready.`
 }
 
 /** Contextual status lines, shown in the top bar as each section comes into view. */

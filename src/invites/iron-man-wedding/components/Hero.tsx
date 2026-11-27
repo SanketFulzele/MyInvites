@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
-import { AnimatePresence, motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
+import HeartReactor from './HeartReactor'
 import Reactor from './Reactor'
 import { EASE, Mono, useSectionStatus } from './ui'
 import { reactorSecrets } from '../copy'
@@ -57,7 +58,7 @@ export default function Hero({ config, ready, date }: Props) {
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian via-obsidian/80 to-transparent lg:hidden" />
       </motion.div>
       ) : (
-        <HeroRings ready={ready} rotate={ringRotate} y={imgY} />
+        <HeartReactor ready={ready} rotate={ringRotate} y={imgY} />
       )}
 
       {/* red key light behind the names */}
@@ -65,7 +66,7 @@ export default function Hero({ config, ready, date }: Props) {
 
       <motion.div
         style={{ y: textY }}
-        className="relative z-10 mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-5 pb-12 pt-24 sm:px-8 lg:justify-center lg:pb-0"
+        className="relative z-10 mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-5 pb-12 pt-[calc(9svh+min(88vw,430px)+8px)] sm:px-8 lg:justify-center lg:pb-0 lg:pt-24"
       >
         <div className="lg:max-w-[46%]">
           {config.headline && (
@@ -147,60 +148,5 @@ export default function Hero({ config, ready, date }: Props) {
         </div>
       </motion.div>
     </section>
-  )
-}
-
-/**
- * Photo-free hero backdrop: an oversized mechanical dial — hairline rings,
- * a tick scale and gold arc segments — that draws itself in and turns with scroll.
- */
-function HeroRings({ ready, rotate, y }: { ready: boolean; rotate: MotionValue<number>; y: MotionValue<string> }) {
-  const draw = (delay: number) => ({
-    initial: { pathLength: 0, opacity: 0 },
-    animate: ready ? { pathLength: 1, opacity: 1 } : {},
-    transition: { delay, duration: 2.2, ease: [0.65, 0, 0.35, 1] as const },
-  })
-  const ticks = Array.from({ length: 120 })
-  return (
-    <motion.div aria-hidden className="pointer-events-none absolute -right-[42%] top-[6svh] w-[135vw] max-w-[820px] sm:-right-[20%] lg:right-[-6%] lg:top-1/2 lg:w-[58vw] lg:-translate-y-1/2" style={{ y }}>
-      <motion.svg viewBox="0 0 400 400" className="h-auto w-full" style={{ rotate }}>
-        <motion.circle cx="200" cy="200" r="196" fill="none" stroke="#d7c29a" strokeOpacity=".22" strokeWidth=".6" {...draw(0.2)} />
-        <motion.circle cx="200" cy="200" r="168" fill="none" stroke="#d7c29a" strokeOpacity=".14" strokeWidth=".6" {...draw(0.35)} />
-        <motion.circle cx="200" cy="200" r="122" fill="none" stroke="#d7c29a" strokeOpacity=".18" strokeWidth=".6" {...draw(0.5)} />
-        <motion.circle cx="200" cy="200" r="80" fill="none" stroke="#d7c29a" strokeOpacity=".12" strokeWidth=".6" {...draw(0.65)} />
-        {/* gold arc segments */}
-        <motion.path d="M200 32 A168 168 0 0 1 345 116" fill="none" stroke="#c69a53" strokeOpacity=".7" strokeWidth="2" {...draw(0.9)} />
-        <motion.path d="M90 328 A168 168 0 0 1 44 254" fill="none" stroke="#c69a53" strokeOpacity=".45" strokeWidth="2" {...draw(1.1)} />
-        <motion.path d="M322 200 A122 122 0 0 1 286 286" fill="none" stroke="#8f1820" strokeOpacity=".9" strokeWidth="3" {...draw(1.2)} />
-        {/* tick scale */}
-        <motion.g initial={{ opacity: 0 }} animate={ready ? { opacity: 1 } : {}} transition={{ delay: 1, duration: 1.4 }}>
-          {ticks.map((_, i) => {
-            const a = (i / ticks.length) * Math.PI * 2
-            const long = i % 10 === 0
-            const r1 = long ? 176 : 182
-            return (
-              <line
-                key={i}
-                x1={200 + r1 * Math.cos(a)}
-                y1={200 + r1 * Math.sin(a)}
-                x2={200 + 188 * Math.cos(a)}
-                y2={200 + 188 * Math.sin(a)}
-                stroke="#d7c29a"
-                strokeOpacity={long ? 0.45 : 0.18}
-                strokeWidth={long ? 1 : 0.6}
-              />
-            )
-          })}
-        </motion.g>
-        {/* faint reactor light at the core */}
-        <motion.circle cx="200" cy="200" r="34" fill="url(#hero-core)" initial={{ opacity: 0 }} animate={ready ? { opacity: 1 } : {}} transition={{ delay: 1.6, duration: 1.6 }} />
-        <defs>
-          <radialGradient id="hero-core">
-            <stop offset="0" stopColor="#66d9ff" stopOpacity=".55" />
-            <stop offset="1" stopColor="#66d9ff" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-      </motion.svg>
-    </motion.div>
   )
 }
